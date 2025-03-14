@@ -2,7 +2,7 @@ import React from "react";
 
 const Nav = () => {
   return (
-    <nav className="px-20 py-4 flex justify-between border">
+    <nav className="px-20 py-4 flex justify-between">
       <svg
         width="114"
         height="40"
@@ -35,7 +35,7 @@ const Nav = () => {
         </defs>
       </svg>
 
-      <div className="flex items-center font-[Helvetica]">
+      <div className="flex items-center">
         <a href="#">Contact Us</a>
       </div>
     </nav>
