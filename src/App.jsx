@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "./Nav/nav";
+import Nav from "./Nav/Nav";
 import Home from "./Pages/Home";
 import { ReactLenis } from "lenis/react";
 
