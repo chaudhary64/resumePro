@@ -13,8 +13,8 @@ export default function Swipper({ data }) {
   return (
     <>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
+        slidesPerView={window.innerWidth > 768 ? 3 : 2}
+        spaceBetween={window.innerWidth > 768 ? 30 : 15}
         navigation={true} // Enable built-in navigation arrows
         modules={[Navigation]} // Include the Navigation module
         className="mySwiper"

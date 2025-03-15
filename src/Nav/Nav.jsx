@@ -2,13 +2,14 @@ import React from "react";
 
 const Nav = () => {
   return (
-    <nav className="px-20 py-4 flex justify-between">
+    <nav className="px-3 lg:px-20 py-4 flex justify-between items-center">
       <svg
         width="114"
         height="40"
         viewBox="0 0 114 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        className="h-6 lg:h-8"
       >
         <g clipPath="url(#clip0_55_72)">
           <path
@@ -35,7 +36,7 @@ const Nav = () => {
         </defs>
       </svg>
 
-      <div className="flex items-center">
+      <div className="flex items-center text-sm lg:text-base">
         <a href="#">Contact Us</a>
       </div>
     </nav>

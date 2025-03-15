@@ -115,72 +115,99 @@ const Home = () => {
 
   return (
     <main>
-      <section className="text-center my-28">
-        <p className="text-6xl">Create a proffesional Resume</p>
-        <div className="my-6 text-lg text-gray-600">
+      {/* Hero Section */}
+      <section className="text-center my-18 lg:my-24">
+        <p className="text-5xl lg:text-7xl">Create a proffesional Resume</p>
+        <div className="my-6 text-xs md:text-base lg:text-lg text-gray-600">
           <p>Fill in the blanks, choose a template and download your</p>
           <p>resume instanly</p>
         </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded transition-colors duration-200">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-3 px-3 md:px-5 lg:px-6 rounded transition-colors duration-200">
           Get Started
         </button>
       </section>
+      {/* Swipper */}
       <Swipper data={swippeCards} />
-      <section className="my-24">
+      {/* How it works */}
+      <section className="my-18 lg:my-24">
         <p className="text-center text-4xl">
           How ResumePro resume builder works
         </p>
-        <div className="my-20 flex justify-evenly">
+        <div className="my-16 flex max-lg:flex-wrap max-lg:gap-8 justify-evenly">
           {steps.map((step) => (
             <div key={step.id}>
-              <img src={step.src} alt={step.title} />
-              <p className="text-center font-[500] text-2xl mt-4">
+              <img
+                src={step.src}
+                alt={step.title}
+                className="max-lg:mx-auto max-lg:h-48"
+              />
+              <p className="text-center font-[700] text-2xl mt-4">
                 {step.title}
               </p>
-              <p className="mt-1 text-base text-center text-gray-900">
+              <p className="mt-1 text-lg text-center text-gray-900">
                 {step.description}
               </p>
             </div>
           ))}
         </div>
       </section>
+      {/* Change CV */}
       <section
         style={{
           backgroundImage: `url("/assets/images/changeCV-bg-img.png")`,
           backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
-        className="flex justify-evenly items-center py-28"
       >
-        <img src="/assets/images/changeCV-image.webp" alt="" />
-        <div className="w-1/2">
-          <p className="text-4xl">Transform Your CV. Transform Your Career.</p>
-          <p className="my-4 text-lg">
-            Elevate your professional profile with ResumePro CV Builder—an
-            advanced career development tool designed to help you stand out. If
-            your current CV lacks impact, it's time for an upgrade. Explore our
-            expertly crafted templates and make a lasting impression.
-          </p>
-          {/* Checkmarks */}
-          <div className="my-6">
-            {[
-              "Leverage tailored recommendations to create a polished CV in minutes.",
-              "Impress recruiters with sophisticated, modern designs.",
-              "Let employers see your true self—the best candidate for the job.",
-            ].map((item, index) => (
-              <div key={index} className="flex gap-3 my-4 text-lg">
-                <img src="/assets/images/circle-check.png" alt="" />
-                <p>{item}</p>
-              </div>
-            ))}
+        <div className="max-lg:w-[90%] mx-auto flex max-lg:flex-wrap justify-evenly items-center max-lg:gap-20 py-20">
+          <img
+            src="/assets/images/changeCV-image.webp"
+            alt=""
+            className="max-lg:h-54 lg:h-96"
+          />
+          <div className="lg:w-1/2">
+            <p className="text-4xl text-center font-[700]">
+              Transform Your CV. Transform Your Career.
+            </p>
+            <p className="my-7 text-lg text-center">
+              Elevate your professional profile with ResumePro CV Builder—an
+              advanced career development tool designed to help you stand out.
+              If your current CV lacks impact, it's time for an upgrade. Explore
+              our expertly crafted templates and make a lasting impression.
+            </p>
+            {/* Checkmarks */}
+            <div className="my-6">
+              {[
+                "Leverage tailored recommendations to create a polished CV in minutes.",
+                "Impress recruiters with sophisticated, modern designs.",
+                "Let employers see your true self—the best candidate for the job.",
+              ].map((item, index) => (
+                <div key={index} className="flex gap-3 my-4 text-lg">
+                  <img
+                    src="/assets/images/circle-check.png"
+                    alt=""
+                    className="h-5"
+                  />
+                  <p
+                    style={{
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <button className="bg-[#FBAF38] font-bold py-3 px-8 rounded-full">
+              Creat your CV Now
+            </button>
           </div>
-          <button className="bg-[#FBAF38] font-bold py-3 px-8 rounded-full">
-            Creat your CV Now
-          </button>
         </div>
       </section>
-      <section className="my-24">
+      {/* FAQ */}
+      <section className="my-18 lg:my-24">
         <p className="text-4xl text-center">Frequenly Asked Questions</p>
-        <div className="mt-20">
+        <div className="mt-9">
           {faqs.map((faq) => (
             <ExpandableText
               key={faq.id}
@@ -190,6 +217,7 @@ const Home = () => {
           ))}
         </div>
       </section>
+      {/* Footer */}
       <Footer />
     </main>
   );

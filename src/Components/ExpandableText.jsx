@@ -8,9 +8,11 @@ function ExpandableText({ question, answer }) {
     <div className="w-[80%] mx-auto border-b">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between py-5"
+        className="w-full flex items-center justify-between py-5 cursor-pointer"
       >
-        <span className="text-lg font-medium text-gray-800">{question}</span>
+        <span className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
+          {question}
+        </span>
         <GoPlus
           className={`w-6 h-6 text-gray-600 transition-transform duration-300 ease-in-out ${
             isExpanded ? "rotate-45" : "rotate-0"
@@ -22,7 +24,7 @@ function ExpandableText({ question, answer }) {
           isExpanded ? "h-fit opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <p className="pb-4 text-gray-700">{answer}</p>
+        <p className="pb-4 text-gray-700 text-sm md:text-base lg:text-lg">{answer}</p>
       </div>
     </div>
   );
