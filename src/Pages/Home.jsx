@@ -115,12 +115,16 @@ const Home = () => {
 
   return (
     <main>
-      {/* Hero Section */}
+      {/* Hero Section  */}
       <section className="text-center my-18 lg:my-24">
-        <p className="text-5xl lg:text-7xl">Create a proffesional Resume</p>
+        <p className="text-5xl lg:text-7xl">
+          Craft a Professional Resume with Ease
+        </p>
         <div className="my-6 text-xs md:text-base lg:text-lg text-gray-600">
-          <p>Fill in the blanks, choose a template and download your</p>
-          <p>resume instanly</p>
+          <p>
+            Simply fill in your details, select a template, and download your
+          </p>
+          <p>resume instantly.</p>
         </div>
         <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-3 px-3 md:px-5 lg:px-6 rounded transition-colors duration-200">
           Get Started
