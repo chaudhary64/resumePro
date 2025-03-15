@@ -1,5 +1,6 @@
 import React from "react";
 import Swipper from "../Components/Swipper";
+import ExpandableText from "../Components/ExpandableText";
 
 const Home = () => {
   const swippeCards = [
@@ -63,6 +64,51 @@ const Home = () => {
       src: "/assets/images/step3.png",
       title: "Download your CV.",
       description: "You'll get a downloadable file in your inbox.",
+    },
+  ];
+
+  const faqs = [
+    {
+      id: 1,
+      question: "What is the definition of a resume?",
+      answer:
+        "A resume is a formal document that a job applicant creates to itemize his or her qualifications for a position. A resume is usually accompanied by a customized cover letter in which the applicant expresses an interest in a specific job or company and draws attention to the most relevant details in the resume.",
+    },
+    {
+      id: 2,
+      question: "What is the difference between a CV and a resume?",
+      answer:
+        "The primary differences between a resume and a curriculum vitae (CV) are length, what is included, and what each is used for. While both are used in job applications, a resume and a CV are not always interchangeable.",
+    },
+    {
+      id: 3,
+      question: "How do I choose the right resume template?",
+      answer:
+        "To choose the right resume template, consider the job you're applying for and your industry. If you're in a creative field, a more visually appealing template might be best. For traditional industries like finance or law, stick to a clean, professional layout. Ensure the template is easy to read, highlights your strengths, and aligns with your experience level. Avoid overloading it with too many graphics or colors that could distract from your qualifications. Choosing the best resume format for the template is also important: Chronological (or reverse chronological) - Most popular: Lists jobs in reverse order, starting with the most recent. Ideal for those with a consistent career track. Functional (skills-based): Highlights skills over chronological work history, perfect for career changers or those with employment gaps. Combination (hybrid): Merges elements of both chronological and functional formats, listing skills followed by employment history. Great for experienced professionals with varied transferable skills relevant to the job. Review our field-tested resume templates or job-specific resume examples to help pick the ideal template for you or change your template on the fly in the builder. To make your resume the best it can be, that may mean avoiding certain pitfalls like not including any dates or using the same template for every job application.",
+    },
+    {
+      id: 4,
+      question: "How far back should a resume go?",
+      answer:
+        "A resume should go back no more than 10 to 15 years in terms of work experience. If you have a longer work history, you can include it on an addendum that you can submit with your resume. This way, you can focus on your most recent work experience and qualifications.",
+    },
+    {
+      id: 5,
+      question: "What does an ATS-friendly resume mean?",
+      answer:
+        "An ATS-friendly resume is designed to pass through the Applicant Tracking Systems, which employers use to screen resumes, especially for roles with lots of applicants. To make your resume ATS-friendly, use a simple, clean format without complex designs or graphics, include relevant keywords from the job description, and use standard fonts. Avoid tables, images, or unusual file formats, and save your resume as a .docx or PDF to ensure compatibility. Use our specially designed ATS resume templates to create the strictest ATS-friendly resume, approved by resumePro career experts.",
+    },
+    {
+      id: 6,
+      question: "Should I make a different resume for every job application?",
+      answer:
+        "Yes, it's essential to tailor your resume for every job application. Tailored resumes are directly relevant to the job description. This impresses recruiters. Customize your resume by highlighting the skills, experiences, and accomplishments most relevant to the specific job. This increases your chances of standing out and showing employers you're a great fit for their position. However, you don't need to start from scratch; just tweak key sections to match the job description. With our resume builder, you can easily duplicate existing resumes, paste the new job listing link, and receive tailored advice to help you update your resume to match the specific job requirements.",
+    },
+    {
+      id: 7,
+      question: "What makes resumePro the best resume builder?",
+      answer:
+        "resumePro stands out for two reasons. Firstly, we're a market leader. We've been refining the builder for more than 10 years; it's fast, effective, and creates strong resumes that win interviews. Our AI resume builder makes it easy to produce mistake-free resumes that highlight your strengths and align with industry standards. They're exactly what recruiters want to see. Secondly (and this is a big one, your resume is just the start. With every resume, you get free access to more than 18 powerful career tools like job search, interview preparation, and salary analysis.",
     },
   ];
 
@@ -131,6 +177,18 @@ const Home = () => {
           </button>
         </div>
       </section>
+      <div className="my-24">
+        <p className="text-4xl text-center">Frequenly Asked Questions</p>
+        <div className="mt-20">
+          {faqs.map((faq) => (
+            <ExpandableText
+              key={faq.id}
+              question={faq.question}
+              answer={faq.answer}
+            />
+          ))}
+        </div>
+      </div>
     </main>
   );
 };
