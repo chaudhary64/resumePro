@@ -7,62 +7,62 @@ const Home = () => {
   const swippeCards = [
     {
       id: 1,
-      src: "/assets/resume-templates/01.svg",
+      src: "/resume-templates/01.svg",
     },
     {
       id: 2,
-      src: "/assets/resume-templates/02.svg",
+      src: "/resume-templates/02.svg",
     },
     {
       id: 3,
-      src: "/assets/resume-templates/03.svg",
+      src: "/resume-templates/03.svg",
     },
     {
       id: 4,
-      src: "/assets/resume-templates/04.svg",
+      src: "/resume-templates/04.svg",
     },
     {
       id: 5,
-      src: "/assets/resume-templates/05.svg",
+      src: "/resume-templates/05.svg",
     },
     {
       id: 6,
-      src: "/assets/resume-templates/06.svg",
+      src: "/resume-templates/06.svg",
     },
     {
       id: 7,
-      src: "/assets/resume-templates/07.svg",
+      src: "/resume-templates/07.svg",
     },
     {
       id: 8,
-      src: "/assets/resume-templates/08.svg",
+      src: "/resume-templates/08.svg",
     },
     {
       id: 9,
-      src: "/assets/resume-templates/09.svg",
+      src: "/resume-templates/09.svg",
     },
     {
       id: 10,
-      src: "/assets/resume-templates/10.svg",
+      src: "/resume-templates/10.svg",
     },
   ];
 
   const steps = [
     {
       id: 1,
-      src: "/assets/images/step1.png",
+      src: "/images/step1.png",
       title: "Pick a CV template.",
       description: "Choose a sleek design and layout to get started.",
     },
     {
       id: 2,
-      src: "/assets/images/step2.png",
+      src: "/images/step2.png",
       title: "Fill in the blanks.",
       description: "You'll fill in the blanks with your information.",
     },
     {
       id: 3,
-      src: "/assets/images/step3.png",
+      src: "/images/step3.png",
       title: "Download your CV.",
       description: "You'll get a downloadable file in your inbox.",
     },
@@ -154,14 +154,14 @@ const Home = () => {
       {/* Change CV */}
       <section
         style={{
-          backgroundImage: `url("/assets/images/changeCV-bg-img.png")`,
+          backgroundImage: `url("/images/changeCV-bg-img.png")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="max-lg:w-[90%] mx-auto flex max-lg:flex-wrap justify-evenly items-center max-lg:gap-20 py-20">
           <img
-            src="/assets/images/changeCV-image.webp"
+            src="/images/changeCV-image.webp"
             alt=""
             className="max-lg:h-54 lg:h-96"
           />
@@ -183,11 +183,7 @@ const Home = () => {
                 "Let employers see your true self—the best candidate for the job.",
               ].map((item, index) => (
                 <div key={index} className="flex gap-3 my-4 text-lg">
-                  <img
-                    src="/assets/images/circle-check.png"
-                    alt=""
-                    className="h-5"
-                  />
+                  <img src="/images/circle-check.png" alt="" className="h-5" />
                   <p
                     style={{
                       lineHeight: 1.2,
