@@ -2,6 +2,20 @@
 
 @import "tailwindcss";
 
+body::-webkit-scrollbar {
+    /* Making the background color of the scrollbar as same as that of the body */
+    background-color: black;
+    width: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+    /* Changing the background-color of the thumb of the scrollbar */
+    background-color: rgb(18, 22, 254);
+    /* Setting the height of the thumb of the scrollbar */
+    height: 100px;
+    border-radius: 5px;
+}
+
 @theme {
     --default-font-family: "Nunito Sans", sans-serif;
 }
