@@ -1,6 +1,7 @@
 import React from "react";
 import Swipper from "../Components/Swipper";
 import ExpandableText from "../Components/ExpandableText";
+import Footer from "../Components/Footer";
 
 const Home = () => {
   const swippeCards = [
@@ -177,7 +178,7 @@ const Home = () => {
           </button>
         </div>
       </section>
-      <div className="my-24">
+      <section className="my-24">
         <p className="text-4xl text-center">Frequenly Asked Questions</p>
         <div className="mt-20">
           {faqs.map((faq) => (
@@ -188,7 +189,8 @@ const Home = () => {
             />
           ))}
         </div>
-      </div>
+      </section>
+      <Footer />
     </main>
   );
 };
