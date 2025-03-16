@@ -19,8 +19,8 @@ function ExpandableText({ question, answer }) {
   };
 
   return (
-    <div className="w-[80%] mx-auto border-b">
-      <button
+    <div className="w-[85%] sm:w-[80%] mx-auto border-b">
+      <div
         onClick={() => {
           isExpanded
             ? collapser(expandableTextController)
@@ -29,7 +29,7 @@ function ExpandableText({ question, answer }) {
         }}
         className="w-full flex items-center justify-between py-5 cursor-pointer"
       >
-        <span className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
+        <span className="max-sm:w-[75%] text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-800">
           {question}
         </span>
         <GoPlus
@@ -37,13 +37,13 @@ function ExpandableText({ question, answer }) {
             isExpanded ? "rotate-45" : "rotate-0"
           }`}
         />
-      </button>
+      </div>
       <motion.div
         initial={{ height: 0 }}
         animate={{ height: isExpanded ? "auto" : 0 }}
         className="-mt-2 overflow-hidden"
       >
-        <p className="pb-4 text-gray-700 text-sm md:text-base lg:text-lg">
+        <p className="pb-4 text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg">
           {answer}
         </p>
       </motion.div>
