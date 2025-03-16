@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 
 // Import required modules
 import { Navigation } from "swiper/modules";
+import Slides from "./Slides";
 
 export default function Swipper({ data }) {
   return (
@@ -21,9 +22,7 @@ export default function Swipper({ data }) {
       >
         {data.map((item, index) => (
           <SwiperSlide key={index + "swiper-element"}>
-            <div className="h-full bg-amber-500 border border-gray-400">
-              <img src={item.src} alt={item.src} />
-            </div>
+            <Slides item={item} />
           </SwiperSlide>
         ))}
       </Swiper>
