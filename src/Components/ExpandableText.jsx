@@ -27,9 +27,9 @@ function ExpandableText({ question, answer }) {
             : expander(expandableTextController);
           setIsExpanded((prev) => !prev);
         }}
-        className="w-full flex items-center justify-between py-5 cursor-pointer"
+        className="w-full py-5 flex justify-between items-center gap-6 cursor-pointer"
       >
-        <span className="max-sm:w-[75%] text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-800">
+        <span className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
           {question}
         </span>
         <GoPlus
@@ -43,7 +43,7 @@ function ExpandableText({ question, answer }) {
         animate={{ height: isExpanded ? "auto" : 0 }}
         className="-mt-2 overflow-hidden"
       >
-        <p className="pb-4 text-gray-700 text-xs sm:text-sm md:text-base lg:text-lg">
+        <p className="pb-4 text-gray-700 text-sm md:text-base lg:text-lg">
           {answer}
         </p>
       </motion.div>
