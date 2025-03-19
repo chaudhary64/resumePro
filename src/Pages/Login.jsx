@@ -1,122 +1,104 @@
-import React from "react";
-import { Client } from "appwrite";
+import React, { useState } from "react";
+import authService from "../services/auth";
 
 const Login = () => {
-  const client = new Client();
-  client.setProject("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const userSession = await authService.login({
+        email: formData.email,
+        password: formData.password,
+      });
+      console.log("Login successful:", userSession);
+      setErrorMessage(""); // Clear any previous errors
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrorMessage(error.message || "An error occurred during login.");
+    }
+  };
+
   return (
-    <>
-      <div className="flex h-screen w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <svg
-            width="114"
-            height="40"
-            viewBox="0 0 114 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 lg:h-10 mx-auto"
-          >
-            <g clipPath="url(#clip0_55_72)">
-              <path
-                d="M11.1601 0.139999V11.26H0.140137L11.1601 0.139999Z"
-                fill="#2E2E2E"
-              />
-              <path
-                d="M29.6561 0.139999V39.856H0.140137V10.07L9.97914 0.139999H29.6561ZM27.0981 2.722H11.0181L2.69814 11.122V37.256H27.0981V2.722Z"
-                fill="#2E2E2E"
-              />
-              <path
-                d="M36.4551 37V22.6836H41.0938C42.8516 22.6836 43.9974 22.7552 44.5312 22.8984C45.3516 23.1133 46.0384 23.582 46.5918 24.3047C47.1452 25.0208 47.4219 25.9486 47.4219 27.0879C47.4219 27.9668 47.2624 28.7057 46.9434 29.3047C46.6243 29.9036 46.2174 30.3757 45.7227 30.7207C45.2344 31.0592 44.7363 31.2839 44.2285 31.3945C43.5384 31.5312 42.5391 31.5996 41.2305 31.5996H39.3457V37H36.4551ZM39.3457 25.1055V29.168H40.9277C42.0671 29.168 42.8288 29.0931 43.2129 28.9434C43.597 28.7936 43.8965 28.5592 44.1113 28.2402C44.3327 27.9212 44.4434 27.5501 44.4434 27.127C44.4434 26.6061 44.2904 26.1764 43.9844 25.8379C43.6784 25.4993 43.291 25.2878 42.8223 25.2031C42.4772 25.138 41.7839 25.1055 40.7422 25.1055H39.3457ZM52.4023 37H49.6582V26.6289H52.207V28.1035C52.6432 27.4069 53.0339 26.9479 53.3789 26.7266C53.7305 26.5052 54.1276 26.3945 54.5703 26.3945C55.1953 26.3945 55.7975 26.5671 56.377 26.9121L55.5273 29.3047C55.0651 29.0052 54.6354 28.8555 54.2383 28.8555C53.8542 28.8555 53.5286 28.9629 53.2617 29.1777C52.9948 29.3861 52.7832 29.7669 52.627 30.3203C52.4772 30.8737 52.4023 32.0326 52.4023 33.7969V37ZM56.9336 31.668C56.9336 30.7565 57.1582 29.8743 57.6074 29.0215C58.0566 28.1686 58.6914 27.5176 59.5117 27.0684C60.3385 26.6191 61.2598 26.3945 62.2754 26.3945C63.8444 26.3945 65.1302 26.9056 66.1328 27.9277C67.1354 28.9434 67.6367 30.2292 67.6367 31.7852C67.6367 33.3542 67.1289 34.6562 66.1133 35.6914C65.1042 36.7201 63.8314 37.2344 62.2949 37.2344C61.3444 37.2344 60.4362 37.0195 59.5703 36.5898C58.7109 36.1602 58.0566 35.5319 57.6074 34.7051C57.1582 33.8717 56.9336 32.8594 56.9336 31.668ZM59.7461 31.8145C59.7461 32.8431 59.9902 33.6309 60.4785 34.1777C60.9668 34.7246 61.569 34.998 62.2852 34.998C63.0013 34.998 63.6003 34.7246 64.082 34.1777C64.5703 33.6309 64.8145 32.8366 64.8145 31.7949C64.8145 30.7793 64.5703 29.998 64.082 29.4512C63.6003 28.9043 63.0013 28.6309 62.2852 28.6309C61.569 28.6309 60.9668 28.9043 60.4785 29.4512C59.9902 29.998 59.7461 30.7858 59.7461 31.8145ZM69.7949 37V34.2559H72.5391V37H69.7949Z"
-                fill="#2E2E2E"
-              />
-              <path
-                d="M36.4648 18V3.68359H42.5488C44.0788 3.68359 45.1888 3.8138 45.8789 4.07422C46.5755 4.32812 47.1322 4.78385 47.5488 5.44141C47.9655 6.09896 48.1738 6.85091 48.1738 7.69727C48.1738 8.77148 47.8581 9.66016 47.2266 10.3633C46.5951 11.0599 45.651 11.4993 44.3945 11.6816C45.0195 12.0462 45.5339 12.4466 45.9375 12.8828C46.3477 13.319 46.8978 14.0938 47.5879 15.207L49.3359 18H45.8789L43.7891 14.8848C43.0469 13.7715 42.5391 13.0716 42.2656 12.7852C41.9922 12.4922 41.7025 12.2936 41.3965 12.1895C41.0905 12.0788 40.6055 12.0234 39.9414 12.0234H39.3555V18H36.4648ZM39.3555 9.73828H41.4941C42.8809 9.73828 43.7467 9.67969 44.0918 9.5625C44.4368 9.44531 44.707 9.24349 44.9023 8.95703C45.0977 8.67057 45.1953 8.3125 45.1953 7.88281C45.1953 7.40104 45.0651 7.01367 44.8047 6.7207C44.5508 6.42122 44.1895 6.23242 43.7207 6.1543C43.4863 6.12174 42.7832 6.10547 41.6113 6.10547H39.3555V9.73828ZM56.8945 14.6992L59.6289 15.1582C59.2773 16.1608 58.7207 16.9258 57.959 17.4531C57.2038 17.974 56.2565 18.2344 55.1172 18.2344C53.3138 18.2344 51.9792 17.6452 51.1133 16.4668C50.4297 15.5228 50.0879 14.3314 50.0879 12.8926C50.0879 11.1738 50.5371 9.82943 51.4355 8.85938C52.334 7.88281 53.4701 7.39453 54.8438 7.39453C56.3867 7.39453 57.6042 7.9056 58.4961 8.92773C59.388 9.94336 59.8145 11.5026 59.7754 13.6055H52.9004C52.9199 14.4193 53.1413 15.054 53.5645 15.5098C53.9876 15.959 54.515 16.1836 55.1465 16.1836C55.5762 16.1836 55.9375 16.0664 56.2305 15.832C56.5234 15.5977 56.7448 15.2201 56.8945 14.6992ZM57.0508 11.9258C57.0312 11.1315 56.8262 10.5293 56.4355 10.1191C56.0449 9.70247 55.5697 9.49414 55.0098 9.49414C54.4108 9.49414 53.916 9.71224 53.5254 10.1484C53.1348 10.5846 52.9427 11.1771 52.9492 11.9258H57.0508ZM61.0547 15.041L63.8086 14.6211C63.9258 15.1549 64.1634 15.5618 64.5215 15.8418C64.8796 16.1152 65.3809 16.252 66.0254 16.252C66.735 16.252 67.2689 16.1217 67.627 15.8613C67.8678 15.679 67.9883 15.4349 67.9883 15.1289C67.9883 14.9206 67.9232 14.748 67.793 14.6113C67.6562 14.4811 67.3503 14.3607 66.875 14.25C64.6615 13.7617 63.2585 13.3158 62.666 12.9121C61.8457 12.3522 61.4355 11.5742 61.4355 10.5781C61.4355 9.67969 61.7904 8.92448 62.5 8.3125C63.2096 7.70052 64.3099 7.39453 65.8008 7.39453C67.2201 7.39453 68.2747 7.62565 68.9648 8.08789C69.6549 8.55013 70.1302 9.23372 70.3906 10.1387L67.8027 10.6172C67.6921 10.2135 67.4805 9.9043 67.168 9.68945C66.862 9.47461 66.4225 9.36719 65.8496 9.36719C65.127 9.36719 64.6094 9.4681 64.2969 9.66992C64.0885 9.81315 63.9844 9.9987 63.9844 10.2266C63.9844 10.4219 64.0755 10.5879 64.2578 10.7246C64.5052 10.9069 65.3581 11.1641 66.8164 11.4961C68.2812 11.8281 69.3034 12.235 69.8828 12.7168C70.4557 13.2051 70.7422 13.8854 70.7422 14.7578C70.7422 15.7083 70.3451 16.5254 69.5508 17.209C68.7565 17.8926 67.5814 18.2344 66.0254 18.2344C64.6126 18.2344 63.4928 17.9479 62.666 17.375C61.8457 16.8021 61.3086 16.0241 61.0547 15.041ZM79.9805 18V16.4473C79.6029 17.0007 79.1048 17.4368 78.4863 17.7559C77.8743 18.0749 77.2266 18.2344 76.543 18.2344C75.8464 18.2344 75.2214 18.0814 74.668 17.7754C74.1146 17.4694 73.7142 17.0397 73.4668 16.4863C73.2194 15.9329 73.0957 15.168 73.0957 14.1914V7.62891H75.8398V12.3945C75.8398 13.8529 75.8887 14.748 75.9863 15.0801C76.0905 15.4056 76.276 15.666 76.543 15.8613C76.8099 16.0501 77.1484 16.1445 77.5586 16.1445C78.0273 16.1445 78.4473 16.0176 78.8184 15.7637C79.1895 15.5033 79.4434 15.1842 79.5801 14.8066C79.7168 14.4225 79.7852 13.4883 79.7852 12.0039V7.62891H82.5293V18H79.9805ZM85.1758 7.62891H87.7051V9.04492C88.61 7.94466 89.6875 7.39453 90.9375 7.39453C91.6016 7.39453 92.1777 7.53125 92.666 7.80469C93.1543 8.07812 93.5547 8.49154 93.8672 9.04492C94.3229 8.49154 94.8145 8.07812 95.3418 7.80469C95.8691 7.53125 96.4323 7.39453 97.0312 7.39453C97.793 7.39453 98.4375 7.55078 98.9648 7.86328C99.4922 8.16927 99.8861 8.62174 100.146 9.2207C100.335 9.66341 100.43 10.3796 100.43 11.3691V18H97.6855V12.0723C97.6855 11.0436 97.5911 10.3796 97.4023 10.0801C97.1484 9.68945 96.7578 9.49414 96.2305 9.49414C95.8464 9.49414 95.485 9.61133 95.1465 9.8457C94.8079 10.0801 94.5638 10.4251 94.4141 10.8809C94.2643 11.3301 94.1895 12.043 94.1895 13.0195V18H91.4453V12.3164C91.4453 11.3073 91.3965 10.6562 91.2988 10.3633C91.2012 10.0703 91.0482 9.85221 90.8398 9.70898C90.638 9.56576 90.3613 9.49414 90.0098 9.49414C89.5866 9.49414 89.2057 9.60807 88.8672 9.83594C88.5286 10.0638 88.2845 10.3926 88.1348 10.8223C87.9915 11.252 87.9199 11.9648 87.9199 12.9609V18H85.1758V7.62891ZM109.18 14.6992L111.914 15.1582C111.562 16.1608 111.006 16.9258 110.244 17.4531C109.489 17.974 108.542 18.2344 107.402 18.2344C105.599 18.2344 104.264 17.6452 103.398 16.4668C102.715 15.5228 102.373 14.3314 102.373 12.8926C102.373 11.1738 102.822 9.82943 103.721 8.85938C104.619 7.88281 105.755 7.39453 107.129 7.39453C108.672 7.39453 109.889 7.9056 110.781 8.92773C111.673 9.94336 112.1 11.5026 112.061 13.6055H105.186C105.205 14.4193 105.426 15.054 105.85 15.5098C106.273 15.959 106.8 16.1836 107.432 16.1836C107.861 16.1836 108.223 16.0664 108.516 15.832C108.809 15.5977 109.03 15.2201 109.18 14.6992ZM109.336 11.9258C109.316 11.1315 109.111 10.5293 108.721 10.1191C108.33 9.70247 107.855 9.49414 107.295 9.49414C106.696 9.49414 106.201 9.71224 105.811 10.1484C105.42 10.5846 105.228 11.1771 105.234 11.9258H109.336Z"
-                fill="#2E2E2E"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_55_72">
-                <rect width="114" height="40" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Login in to your account
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm/6 font-medium text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
-                >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Log in
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              Sign Up
-            </a>
-          </p>
-        </div>
+    <div className="flex h-screen w-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
+          Log in to your account
+        </h2>
       </div>
-    </>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        {errorMessage && (
+          <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Email Input */}
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
+              />
+            </div>
+          </div>
+
+          {/* Password Input */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+              Password
+            </label>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                autoComplete="current-password"
+                value={formData.password}
+                onChange={handleChange}
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-indigo-600"
+            >
+              Log in
+            </button>
+          </div>
+        </form>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          Not a member?{" "}
+          <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+            Sign Up
+          </a>
+        </p>
+      </div>
+    </div>
   );
 };
 
