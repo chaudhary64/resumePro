@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactLenis } from "lenis/react";
-import Routes from "./Components/Router/NavigationRoutes";
+import Routes from "./Router/NavigationRoutes";
 
 const App = () => {
   return (
