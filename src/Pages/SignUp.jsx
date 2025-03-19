@@ -1,39 +1,29 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import authService from "../services/auth";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
+  const onSubmit = async (data) => {
+    if (data.password !== data.confirmPassword) {
       setErrorMessage("Passwords do not match.");
       return;
     }
-
     try {
       const response = await authService.createAccount({
-        email: formData.email,
-        password: formData.password,
-        name: formData.username,
+        email: data.email,
+        password: data.password,
+        name: data.username,
       });
-
       console.log("User registered successfully:", response);
-
-      // Redirect or show success message here
+      setErrorMessage(""); // Clear any previous errors
     } catch (error) {
       setErrorMessage(error.message || "Something went wrong.");
       console.error("Registration error:", error);
@@ -46,25 +36,21 @@ const SignUp = () => {
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Welcome! Let's Begin
         </h2>
-        {errorMessage && (
-          <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {errorMessage && <p className="text-red-500 text-sm mb-4">{errorMessage}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Username */}
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               Username
             </label>
             <input
-              type="text"
-              name="username"
               id="username"
-              value={formData.username}
-              onChange={handleChange}
+              type="text"
+              {...register("username", { required: "Username is required" })}
               className="mt-1 block w-full rounded-md border px-3 py-2 text-sm"
               placeholder="Enter your username"
-              required
             />
+            {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username.message}</p>}
           </div>
 
           {/* Email */}
@@ -73,15 +59,13 @@ const SignUp = () => {
               Email
             </label>
             <input
-              type="email"
-              name="email"
               id="email"
-              value={formData.email}
-              onChange={handleChange}
+              type="email"
+              {...register("email", { required: "Email is required" })}
               className="mt-1 block w-full rounded-md border px-3 py-2 text-sm"
               placeholder="Enter your email"
-              required
             />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -90,15 +74,13 @@ const SignUp = () => {
               Password
             </label>
             <input
-              type="password"
-              name="password"
               id="password"
-              value={formData.password}
-              onChange={handleChange}
+              type="password"
+              {...register("password", { required: "Password is required" })}
               className="mt-1 block w-full rounded-md border px-3 py-2 text-sm"
               placeholder="Enter your password"
-              required
             />
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
           </div>
 
           {/* Confirm Password */}
@@ -107,15 +89,13 @@ const SignUp = () => {
               Confirm Password
             </label>
             <input
-              type="password"
-              name="confirmPassword"
               id="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
+              type="password"
+              {...register("confirmPassword", { required: "Please confirm your password" })}
               className="mt-1 block w-full rounded-md border px-3 py-2 text-sm"
               placeholder="Confirm your password"
-              required
             />
+            {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword.message}</p>}
           </div>
 
           {/* Submit Button */}

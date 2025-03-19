@@ -1,25 +1,21 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import authService from "../services/auth";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
       const userSession = await authService.login({
-        email: formData.email,
-        password: formData.password,
+        email: data.email,
+        password: data.password,
       });
       console.log("Login successful:", userSession);
       setErrorMessage(""); // Clear any previous errors
@@ -38,10 +34,8 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        {errorMessage && (
-          <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {errorMessage && <p className="text-red-500 text-sm mb-4">{errorMessage}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Email Input */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-900">
@@ -50,14 +44,12 @@ const Login = () => {
             <div className="mt-2">
               <input
                 id="email"
-                name="email"
                 type="email"
-                required
                 autoComplete="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email", { required: "Email is required" })}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
           </div>
 
@@ -69,14 +61,12 @@ const Login = () => {
             <div className="mt-2">
               <input
                 id="password"
-                name="password"
                 type="password"
-                required
                 autoComplete="current-password"
-                value={formData.password}
-                onChange={handleChange}
+                {...register("password", { required: "Password is required" })}
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-gray-300 placeholder:text-gray-400 focus:outline-indigo-600"
               />
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
             </div>
           </div>
 
@@ -92,7 +82,7 @@ const Login = () => {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          Not a member?{" "}
+          Not a member? {" "}
           <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
             Sign Up
           </a>
