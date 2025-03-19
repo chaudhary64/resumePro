@@ -173,10 +173,10 @@ const Home = () => {
               className="max-lg:h-54 lg:h-96"
             />
             <div className="lg:w-1/2">
-              <p className="text-4xl text-center font-[700]">
+              <p className="text-4xl font-[700]">
                 Transform Your CV. Transform Your Career.
               </p>
-              <p className="my-7 text-lg text-center">
+              <p className="my-7 text-lg">
                 Elevate your professional profile with ResumePro CV Builder—an
                 advanced career development tool designed to help you stand out.
                 If your current CV lacks impact, it's time for an upgrade.
