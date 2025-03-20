@@ -1,4 +1,5 @@
 import React from "react";
+import { SignOutButton } from "@clerk/clerk-react";
 
 const Nav = () => {
   return (
@@ -37,7 +38,11 @@ const Nav = () => {
       </svg>
 
       <div className="flex items-center text-sm lg:text-base">
-        <a href="#">Contact Us</a>
+        <SignOutButton redirectUrl="/sign-in">
+          <button className="bg-red-500 hover:bg-red-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-2.5 px-3 md:px-5 lg:px-5 rounded transition-colors duration-200">
+            Logout
+          </button>
+        </SignOutButton>
       </div>
     </nav>
   );
