@@ -12,6 +12,7 @@ import {
 } from "@clerk/clerk-react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import ProtectedPage from "./ProtectedPage.jsx";
+import Resume from "./Components/Resume.jsx";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -57,19 +58,19 @@ const ClerkWithRoutes = () => {
             <SignUp fallbackRedirectUrl={"/"} routing="path" path="/sign-up" />
           }
         />
-        {/* <Route
-          path="/protected"
+        <Route
+          path="/:id"
           element={
             <>
               <SignedIn>
-                <ProtectedPage />
+                <Resume />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />
               </SignedOut>
             </>
           }
-        /> */}
+        />
       </Routes>
     </ClerkProvider>
   );
