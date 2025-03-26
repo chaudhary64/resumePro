@@ -45,9 +45,9 @@ const Hobbies = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Hobbies</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-500 font-bold select-none">Hobbies</p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.hobbies);
@@ -59,7 +59,7 @@ const Hobbies = ({ toogleElement, setToggleElement }) => {
               hobbies: !prev.hobbies,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.hobbies ? (
             <svg
@@ -95,7 +95,7 @@ const Hobbies = ({ toogleElement, setToggleElement }) => {
       >
         {/* Render Hobbies directly */}
         {(formData.hobbies || []).map((hobby) => (
-          <div key={hobby.id} className="border p-4 my-2 rounded">
+          <div key={hobby.id} className="border p-4 my-5.5 rounded">
             <label className="block text-sm font-medium">Hobby</label>
             <input
               type="text"
@@ -109,7 +109,7 @@ const Hobbies = ({ toogleElement, setToggleElement }) => {
 
             <button
               onClick={() => removeHobby(hobby.id)}
-              className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+              className="mt-4 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
             >
               Remove
             </button>

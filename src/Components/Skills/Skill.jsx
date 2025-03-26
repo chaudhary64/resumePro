@@ -45,9 +45,9 @@ const Skill = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Skills</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-800 font-bold select-none">Skills</p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.skills);
@@ -59,7 +59,7 @@ const Skill = ({ toogleElement, setToggleElement }) => {
               skills: !prev.skills,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.skills ? (
             <svg
@@ -95,7 +95,7 @@ const Skill = ({ toogleElement, setToggleElement }) => {
       >
         {/* Render Skills directly */}
         {(formData.skills || []).map((skill) => (
-          <div key={skill.id} className="border p-4 my-2 rounded">
+          <div key={skill.id} className="border p-4 my-5.5 rounded">
             <label className="block text-sm font-medium">Skill</label>
             <input
               type="text"
@@ -109,7 +109,7 @@ const Skill = ({ toogleElement, setToggleElement }) => {
 
             <button
               onClick={() => removeSkill(skill.id)}
-              className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+              className="mt-4 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
             >
               Remove
             </button>

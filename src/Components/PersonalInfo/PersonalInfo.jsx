@@ -24,9 +24,11 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Personal Information</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-800 font-bold select-none">
+          Personal Information
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.personalInfo);
@@ -38,7 +40,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
               personalInfo: !prev.personalInfo,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.personalInfo ? (
             <svg
@@ -75,7 +77,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
         <div className="border p-4 my-2 rounded">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium">Given Name</label>
+              <label className="block text-sm font-medium">First Name</label>
               <input
                 type="text"
                 value={formData.personalInfo?.givenName || ""}
@@ -86,7 +88,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium">Family Name</label>
+              <label className="block text-sm font-medium">Last Name</label>
               <input
                 type="text"
                 value={formData.personalInfo?.familyName || ""}
@@ -108,7 +110,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium">Post Code</label>
+              <label className="block text-sm font-medium">Postal Code</label>
               <input
                 type="text"
                 value={formData.personalInfo?.postCode || ""}
@@ -166,22 +168,38 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="block text-sm font-medium">Gender</label>
-              <select
-                value={formData.personalInfo?.gender || ""}
-                onChange={(e) =>
-                  handlePersonalInfoChange("gender", e.target.value)
-                }
-                className="border p-2 w-full rounded"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              <div className="relative w-full">
+                <select
+                  value={formData.personalInfo?.gender || ""}
+                  onChange={(e) =>
+                    handlePersonalInfoChange("gender", e.target.value)
+                  }
+                  className="border p-2 w-full rounded appearance-none bg-white"
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+
+                {/* Downward Arrow */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-800"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
             </div>
-            <div>
+            <div className="col-span-2">
               <label className="block text-sm font-medium">Nationality</label>
               <input
                 type="text"
@@ -192,21 +210,40 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium">Civil Status</label>
-              <select
-                value={formData.personalInfo?.civilStatus || ""}
-                onChange={(e) =>
-                  handlePersonalInfoChange("civilStatus", e.target.value)
-                }
-                className="border p-2 w-full rounded"
-              >
-                <option value="">Select Civil Status</option>
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-                <option value="divorced">Divorced</option>
-                <option value="widowed">Widowed</option>
-              </select>
+            <div className="col-span-2">
+              <label className="block text-sm font-medium">
+                Marital Status
+              </label>
+
+              <div className="relative w-full">
+                <select
+                  value={formData.personalInfo?.civilStatus || ""}
+                  onChange={(e) =>
+                    handlePersonalInfoChange("civilStatus", e.target.value)
+                  }
+                  className="border p-2 w-full rounded appearance-none bg-white"
+                >
+                  <option value="">Select Marital Status</option>
+                  <option value="single">Single</option>
+                  <option value="married">Married</option>
+                  <option value="divorced">Divorced</option>
+                  <option value="widowed">Widowed</option>
+                </select>
+
+                {/* Downward Arrow */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-700"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>

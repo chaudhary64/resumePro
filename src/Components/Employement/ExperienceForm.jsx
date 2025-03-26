@@ -7,7 +7,7 @@ const ExperienceForm = ({
   removeExperience,
 }) => {
   return (
-    <div className="border p-4 my-2 rounded">
+    <div className="border p-4 my-5.5 rounded">
       <label className="block text-sm font-medium">Position</label>
       <input
         type="text"
@@ -18,7 +18,7 @@ const ExperienceForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">Employer</label>
+      <label className="block text-sm font-medium mt-4">Employer</label>
       <input
         type="text"
         value={experienceData.employer}
@@ -26,7 +26,7 @@ const ExperienceForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">Start Date</label>
+      <label className="block text-sm font-medium mt-4">Start Date</label>
       <input
         type="date"
         value={experienceData.startDate}
@@ -34,7 +34,7 @@ const ExperienceForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">End Date</label>
+      <label className="block text-sm font-medium mt-4">End Date</label>
       <input
         type="date"
         value={experienceData.endDate}
@@ -42,7 +42,7 @@ const ExperienceForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">Description</label>
+      <label className="block text-sm font-medium mt-4">Description</label>
       <textarea
         value={experienceData.description}
         onChange={(e) => handleExperienceChange(id, "description", e.target.value)}

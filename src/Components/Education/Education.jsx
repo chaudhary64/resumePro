@@ -49,9 +49,11 @@ const Education = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Education</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-500 font-bold select-none">
+          Education
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.education);
@@ -63,7 +65,7 @@ const Education = ({ toogleElement, setToggleElement }) => {
               education: !prev.education,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.education ? (
             <svg
@@ -109,7 +111,7 @@ const Education = ({ toogleElement, setToggleElement }) => {
         ))}
 
         {/* Add Education Button */}
-        <div className="flex justify-between gap-2 mt-4">
+        <div className="flex justify-between gap-2">
           <div
             onClick={addEducation}
             className="border border-gray-400 px-3 py-1 rounded"

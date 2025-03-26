@@ -48,9 +48,11 @@ const Courses = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Courses</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-500 font-bold select-none">
+          Courses
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.courses);
@@ -62,7 +64,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
               courses: !prev.courses,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.courses ? (
             <svg
@@ -98,7 +100,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
       >
         {/* Render Courses directly */}
         {(formData.courses || []).map((course) => (
-          <div key={course.id} className="border p-4 my-2 rounded">
+          <div key={course.id} className="border p-4 my-5.5 rounded">
             <label className="block text-sm font-medium">Course Name</label>
             <input
               type="text"
@@ -106,11 +108,11 @@ const Courses = ({ toogleElement, setToggleElement }) => {
               onChange={(e) =>
                 handleCourseChange(course.id, "courseName", e.target.value)
               }
-              className="border p-2 w-full rounded mb-2"
+              className="border p-2 w-full rounded mb-4"
               placeholder="Enter course name"
             />
 
-            <div className="flex gap-4 mb-2">
+            <div className="flex gap-4 mb-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium">Start Date</label>
                 <input

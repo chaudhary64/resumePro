@@ -8,7 +8,7 @@ const EducationForm = ({
   removeEducation,
 }) => {
   return (
-    <div className="border p-4 my-2 rounded">
+    <div className="border p-4 my-5.5 rounded">
       <label className="block text-sm font-medium">Institution</label>
       <input
         type="text"
@@ -19,7 +19,7 @@ const EducationForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">Degree</label>
+      <label className="block text-sm font-medium mt-4">Degree</label>
       <input
         type="text"
         value={educationData.degree}
@@ -27,7 +27,7 @@ const EducationForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">Start Date</label>
+      <label className="block text-sm font-medium mt-4">Start Date</label>
       <input
         type="date"
         value={educationData.startDate}
@@ -35,7 +35,7 @@ const EducationForm = ({
         className="border p-2 w-full rounded"
       />
 
-      <label className="block text-sm font-medium mt-2">End Date</label>
+      <label className="block text-sm font-medium mt-4">End Date</label>
       <input
         type="date"
         value={educationData.endDate}

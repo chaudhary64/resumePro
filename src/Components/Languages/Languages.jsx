@@ -45,9 +45,11 @@ const Languages = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Languages</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-500 font-bold select-none">
+          Languages
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.languages);
@@ -59,7 +61,7 @@ const Languages = ({ toogleElement, setToggleElement }) => {
               languages: !prev.languages,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.languages ? (
             <svg
@@ -95,7 +97,7 @@ const Languages = ({ toogleElement, setToggleElement }) => {
       >
         {/* Render Languages directly */}
         {(formData.languages || []).map((lang) => (
-          <div key={lang.id} className="border p-4 my-2 rounded">
+          <div key={lang.id} className="border p-4 my-5.5 rounded">
             <label className="block text-sm font-medium">Language</label>
             <input
               type="text"
@@ -109,7 +111,7 @@ const Languages = ({ toogleElement, setToggleElement }) => {
 
             <button
               onClick={() => removeLanguage(lang.id)}
-              className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+              className="mt-4 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
             >
               Remove
             </button>

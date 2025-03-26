@@ -30,7 +30,9 @@ const Achievements = ({ toogleElement, setToggleElement }) => {
   const removeAchievement = (id) => {
     setFormData((prev) => ({
       ...prev,
-      achievements: prev.achievements.filter((achievement) => achievement.id !== id),
+      achievements: prev.achievements.filter(
+        (achievement) => achievement.id !== id
+      ),
       achievementsCounter: prev.achievementsCounter - 1,
     }));
   };
@@ -45,9 +47,11 @@ const Achievements = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Achievements</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-800 font-bold select-none">
+          Achievements
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.achievements);
@@ -59,7 +63,7 @@ const Achievements = ({ toogleElement, setToggleElement }) => {
               achievements: !prev.achievements,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.achievements ? (
             <svg
@@ -95,13 +99,17 @@ const Achievements = ({ toogleElement, setToggleElement }) => {
       >
         {/* Render Achievements directly */}
         {(formData.achievements || []).map((achievement) => (
-          <div key={achievement.id} className="border p-4 my-2 rounded">
+          <div key={achievement.id} className="border p-4 my-5.5 rounded">
             <label className="block text-sm font-medium">Achievement</label>
             <input
               type="text"
               value={achievement.achievement}
               onChange={(e) =>
-                handleAchievementChange(achievement.id, "achievement", e.target.value)
+                handleAchievementChange(
+                  achievement.id,
+                  "achievement",
+                  e.target.value
+                )
               }
               className="border p-2 w-full rounded"
               placeholder="Enter an achievement (e.g., Award, Recognition, Accomplishment)"
@@ -109,7 +117,7 @@ const Achievements = ({ toogleElement, setToggleElement }) => {
 
             <button
               onClick={() => removeAchievement(achievement.id)}
-              className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+              className="mt-4 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
             >
               Remove
             </button>

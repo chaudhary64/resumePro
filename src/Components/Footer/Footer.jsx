@@ -21,9 +21,11 @@ const Footer = ({ toogleElement, setToggleElement }) => {
   };
 
   return (
-    <section className="pb-4 border-b border-gray-200">
-      <div className="pt-4 flex justify-between items-center">
-        <p>Footer</p>
+    <section className="pb-5.5 border-b border-gray-200">
+      <div className="pt-5.5 flex justify-between items-center">
+        <p className="text-xl truncate text-gray-500 font-bold select-none">
+          Footer
+        </p>
         <span
           onClick={() => {
             console.log("Saving Data:", formData.footer);
@@ -35,7 +37,7 @@ const Footer = ({ toogleElement, setToggleElement }) => {
               footer: !prev.footer,
             }));
           }}
-          className="rounded border border-gray-400"
+          className="rounded border border-gray-400 p-0.25"
         >
           {toogleElement.footer ? (
             <svg
@@ -69,7 +71,7 @@ const Footer = ({ toogleElement, setToggleElement }) => {
         animate={footerWrapper}
         className="overflow-hidden"
       >
-        <div className="border p-4 my-2 rounded">
+        <div className="border p-4 my-5.5 rounded">
           <label className="block text-sm font-medium">Footer Text</label>
           <input
             type="text"
