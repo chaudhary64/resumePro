@@ -13,6 +13,7 @@ import {
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import ProtectedPage from "./ProtectedPage.jsx";
 import Resume from "./Components/Resume.jsx";
+import Context from "./Context/Context.jsx";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -77,7 +78,9 @@ const ClerkWithRoutes = () => {
 };
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <ClerkWithRoutes />
-  </BrowserRouter>
+  <Context>
+    <BrowserRouter>
+      <ClerkWithRoutes />
+    </BrowserRouter>
+  </Context>
 );

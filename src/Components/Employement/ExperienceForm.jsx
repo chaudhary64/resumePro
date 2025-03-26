@@ -1,0 +1,63 @@
+import React from "react";
+
+const ExperienceForm = ({
+  id,
+  experienceData,
+  handleExperienceChange,
+  removeExperience,
+}) => {
+  return (
+    <div className="border p-4 my-2 rounded">
+      <label className="block text-sm font-medium">Position</label>
+      <input
+        type="text"
+        value={experienceData.position}
+        onChange={(e) =>
+          handleExperienceChange(id, "position", e.target.value)
+        }
+        className="border p-2 w-full rounded"
+      />
+
+      <label className="block text-sm font-medium mt-2">Employer</label>
+      <input
+        type="text"
+        value={experienceData.employer}
+        onChange={(e) => handleExperienceChange(id, "employer", e.target.value)}
+        className="border p-2 w-full rounded"
+      />
+
+      <label className="block text-sm font-medium mt-2">Start Date</label>
+      <input
+        type="date"
+        value={experienceData.startDate}
+        onChange={(e) => handleExperienceChange(id, "startDate", e.target.value)}
+        className="border p-2 w-full rounded"
+      />
+
+      <label className="block text-sm font-medium mt-2">End Date</label>
+      <input
+        type="date"
+        value={experienceData.endDate}
+        onChange={(e) => handleExperienceChange(id, "endDate", e.target.value)}
+        className="border p-2 w-full rounded"
+      />
+
+      <label className="block text-sm font-medium mt-2">Description</label>
+      <textarea
+        value={experienceData.description}
+        onChange={(e) => handleExperienceChange(id, "description", e.target.value)}
+        className="border p-2 w-full rounded"
+        rows="4"
+      />
+
+      <button
+        onClick={() => removeExperience(id)}
+        className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+      >
+        Remove
+      </button>
+    </div>
+  );
+};
+
+export default ExperienceForm;

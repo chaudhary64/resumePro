@@ -3,8 +3,15 @@ import { IoMdArrowBack } from "react-icons/io";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Link, useParams } from "react-router";
 import { motion, useAnimation } from "framer-motion";
-import Education from "./Education";
+import Education from "./Education/Education";
 import { collapser, expander } from "../utils/animation";
+import WorkExperience from "./Employement/WorkExperience";
+import Skill from "./Skills/Skill";
+import Languages from "./Languages/Languages";
+import Hobbies from "./Hobbies/Hobbies";
+import Courses from "./Courses/Courses";
+import Achievements from "./Achievements/Achievements";
+import Footer from "./Footer/Footer";
 
 const Resume = () => {
   const { id } = useParams();
@@ -18,8 +25,6 @@ const Resume = () => {
     languages: false,
     hobbies: false,
     courses: false,
-    internships: false,
-    extracurricular: false,
     references: false,
     quality: false,
     certifications: false,
@@ -46,7 +51,7 @@ const Resume = () => {
       </nav>
       <main className="h-[93vh] flex gap-2">
         {/* Left Part */}
-        <section className="h-full w-1/2 border-4 border-red-500 overflow-y-scroll">
+        <section className="h-full w-1/2 border-4 border-red-500 overflow-y-scroll no-scrollbar">
           <form action="post" className="w-[80%] mx-auto pt-5 px-5">
             {/* Desired Job Position */}
             <div className="pb-3 border-b border-gray-200">
@@ -492,6 +497,47 @@ const Resume = () => {
 
             {/* Education */}
             <Education
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Employment */}
+            <WorkExperience
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Skills */}
+            <Skill
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Languages */}
+            <Languages
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Hobbies */}
+            <Hobbies
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Courses */}
+            <Courses
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Achievements */}
+            <Achievements
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            <Footer
               toogleElement={toogleElement}
               setToggleElement={setToggleElement}
             />
