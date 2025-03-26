@@ -1,0 +1,218 @@
+// PersonalInfo.jsx
+import React, { useContext, useEffect } from "react";
+import { motion } from "framer-motion";
+import { collapser, expander } from "../../utils/animation";
+import { useAnimation } from "framer-motion";
+import { Info } from "../../Context/Context";
+
+const PersonalInfo = ({ toogleElement, setToggleElement }) => {
+  const personalInfoWrapper = useAnimation();
+  const { formData, setFormData } = useContext(Info);
+
+  useEffect(() => {
+    console.log("Updated formData:", formData);
+  }, [formData]);
+
+  const handlePersonalInfoChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      personalInfo: {
+        ...prev.personalInfo,
+        [field]: value,
+      },
+    }));
+  };
+
+  return (
+    <section className="pb-4 border-b border-gray-200">
+      <div className="pt-4 flex justify-between items-center">
+        <p>Personal Information</p>
+        <span
+          onClick={() => {
+            console.log("Saving Data:", formData.personalInfo);
+            toogleElement.personalInfo
+              ? collapser(personalInfoWrapper)
+              : expander(personalInfoWrapper);
+            setToggleElement((prev) => ({
+              ...prev,
+              personalInfo: !prev.personalInfo,
+            }));
+          }}
+          className="rounded border border-gray-400"
+        >
+          {toogleElement.personalInfo ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              className="pointer-events-none flex-shrink-0 box-content h-6 w-6"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                d="M480-542.463 317.076-379.539q-8.307 8.308-20.884 8.5t-21.268-8.5q-8.693-8.692-8.693-21.076t8.693-21.077l179.769-179.769q5.615-5.615 11.846-7.923T480-611.691t13.461 2.307q6.231 2.308 11.846 7.923l179.769 179.769q8.308 8.308 8.5 20.884t-8.5 21.269T664-370.847t-21.076-8.692z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              className="pointer-events-none flex-shrink-0 box-content h-6 w-6 text-gray-700"
+            >
+              <path
+                fill="currentColor"
+                d="M480-373.539q-7.231 0-13.461-2.308t-11.846-7.923L274.924-563.539q-8.308-8.307-8.5-20.884t8.5-21.269T296-614.384t21.076 8.692L480-442.768l162.924-162.924q8.307-8.307 20.884-8.5t21.268 8.5q8.693 8.692 8.693 21.077 0 12.384-8.693 21.076L505.307-383.77q-5.615 5.615-11.846 7.923T480-373.539"
+              ></path>
+            </svg>
+          )}
+        </span>
+      </div>
+
+      <motion.section
+        initial={{ height: 0, visibility: "none" }}
+        animate={personalInfoWrapper}
+        className="overflow-hidden"
+      >
+        <div className="border p-4 my-2 rounded">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium">Given Name</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.givenName || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("givenName", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Family Name</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.familyName || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("familyName", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Address</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.address || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("address", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Post Code</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.postCode || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("postCode", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">City</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.city || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("city", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Date of Birth</label>
+              <input
+                type="date"
+                value={formData.personalInfo?.dob || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("dob", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">
+                Place of Birth
+              </label>
+              <input
+                type="text"
+                value={formData.personalInfo?.placeOfBirth || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("placeOfBirth", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">
+                Driver's License
+              </label>
+              <input
+                type="text"
+                value={formData.personalInfo?.driverLicense || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("driverLicense", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Gender</label>
+              <select
+                value={formData.personalInfo?.gender || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("gender", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Nationality</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.nationality || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("nationality", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Civil Status</label>
+              <select
+                value={formData.personalInfo?.civilStatus || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("civilStatus", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              >
+                <option value="">Select Civil Status</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+    </section>
+  );
+};
+
+export default PersonalInfo;
