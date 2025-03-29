@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { collapser, expander } from "../../utils/animation";
 import { useAnimation } from "framer-motion";
 import { Info } from "../../Context/Context";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 const PersonalInfo = ({ toogleElement, setToggleElement }) => {
   const personalInfoWrapper = useAnimation();
@@ -68,7 +70,6 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
           )}
         </span>
       </div>
-
       <motion.section
         initial={{ height: 0, visibility: "none" }}
         animate={personalInfoWrapper}
@@ -95,6 +96,28 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 onChange={(e) =>
                   handlePersonalInfoChange("familyName", e.target.value)
                 }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Email</label>
+              <input
+                type="email"
+                value={formData.personalInfo?.email || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("email", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium">Phone Number</label>
+              <PhoneInput
+                international
+                countryCallingCodeEditable={false}
+                defaultCountry="IN"
+                value={formData.personalInfo?.phoneNumber || ""}
+                onChange={(value) => handlePersonalInfoChange("phoneNumber", value)}
                 className="border p-2 w-full rounded"
               />
             </div>
@@ -183,8 +206,6 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
-
-                {/* Downward Arrow */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -230,7 +251,6 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                   <option value="widowed">Widowed</option>
                 </select>
 
-                {/* Downward Arrow */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"

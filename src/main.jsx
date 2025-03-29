@@ -2,14 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import {
-  ClerkProvider,
-  RedirectToSignIn,
-  SignIn,
-  SignUp,
-  SignedIn,
-  SignedOut,
-} from "@clerk/clerk-react";
+import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp } from "@clerk/clerk-react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router";
 import ProtectedPage from "./ProtectedPage.jsx";
 import Resume from "./Components/Resume.jsx";

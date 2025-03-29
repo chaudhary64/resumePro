@@ -37,7 +37,6 @@ const Context = (props) => {
     courses: [],
     achievementsCounter: 0,
     achievements: [],
-    
   });
 
   return (
