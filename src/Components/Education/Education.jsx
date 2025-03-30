@@ -111,7 +111,7 @@ const Education = ({ toogleElement, setToggleElement }) => {
         ))}
 
         {/* Add Education Button */}
-        <div className="flex justify-between gap-2">
+        <div className="flex justify-between gap-2 my-3">
           <div
             onClick={addEducation}
             className="border border-gray-400 px-3 py-1 rounded"

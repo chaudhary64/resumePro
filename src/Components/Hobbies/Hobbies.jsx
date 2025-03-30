@@ -117,7 +117,7 @@ const Hobbies = ({ toogleElement, setToggleElement }) => {
         ))}
 
         {/* Add Hobby Button */}
-        <div className="flex justify-between gap-2 mt-4">
+        <div className="flex justify-between gap-2 mt-3">
           <div
             onClick={addHobby}
             className="border border-gray-400 px-3 py-1 rounded"

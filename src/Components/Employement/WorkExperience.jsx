@@ -111,7 +111,7 @@ const WorkExperience = ({ toogleElement, setToggleElement }) => {
         ))}
 
         {/* Add Experience Button */}
-        <div className="flex justify-between gap-2">
+        <div className="flex justify-between gap-2 my-3">
           <div
             onClick={addExperience}
             className="border border-gray-400 px-3 py-1 rounded"

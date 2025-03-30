@@ -75,7 +75,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
         animate={personalInfoWrapper}
         className="overflow-hidden"
       >
-        <div className="border p-4 my-2 rounded">
+        <div className="border p-4 my-5.5 rounded">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium">First Name</label>
