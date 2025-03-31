@@ -137,17 +137,6 @@ const Courses = ({ toogleElement, setToggleElement }) => {
               </div>
             </div>
 
-            <label className="block text-sm font-medium">Description</label>
-            <textarea
-              value={course.description}
-              onChange={(e) =>
-                handleCourseChange(course.id, "description", e.target.value)
-              }
-              className="border p-2 w-full rounded"
-              rows="3"
-              placeholder="Enter course description"
-            />
-
             <button
               onClick={() => removeCourse(course.id)}
               className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"

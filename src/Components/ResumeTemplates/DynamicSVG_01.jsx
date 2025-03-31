@@ -1,8 +1,8 @@
-// DynamicSVG.jsx
+// DynamicSVG_01.jsx
 import React, { useContext } from "react";
 import { Info } from "../../Context/Context";
 
-const DynamicSVG = () => {
+const DynamicSVG_01 = () => {
   const { formData } = useContext(Info);
 
   return (
@@ -227,7 +227,7 @@ const DynamicSVG = () => {
         y="246.675"
         x="75"
       >
-        portfolio.me
+        {formData.personalInfo.website}
       </text>
       {/* Linkedin */}
       <image
@@ -245,7 +245,7 @@ const DynamicSVG = () => {
         y="260.425"
         x="75"
       >
-        linkedin.in
+        {formData.personalInfo.linkedin}
       </text>
       <svg y="314.375" x="40" id="skills" />
       <text
@@ -259,91 +259,20 @@ const DynamicSVG = () => {
         SKILLS
       </text>
       {/* ALL SKILLS */}
-      <svg y="340.875" x="40" id="228c1040-3785-4e7a-96f5-6f051b52b638" />
-      <text fill="white" font-size="10px" font-family="Poppins" y="351" x="40">
-        HTML
-      </text>
-      <svg y="364.625" x="40" id="689af787-9b8b-4b97-a636-ccd57a1c8d29" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="374.75"
-        x="40"
-      >
-        CSS
-      </text>
-      <svg y="388.375" x="40" id="d23f5bb7-4776-4c8d-9be4-b82af3f4ab6e" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="398.5"
-        x="40"
-      >
-        JavaScript
-      </text>
-      <svg y="412.125" x="40" id="c84a8026-fdcc-4089-88f4-3fdaaeb7d092" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="422.25"
-        x="40"
-      >
-        React
-      </text>
-      <svg y="435.875" x="40" id="da3adfde-5337-4211-b78c-84383b3ab606" />
-      <text fill="white" font-size="10px" font-family="Poppins" y="446" x="40">
-        Responsive 
-      </text>
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="446"
-        x="98.50999999999999"
-      >
-        Design
-      </text>
-      <svg y="459.625" x="40" id="a24febda-5668-4367-adf1-3d238c52e612" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="469.75"
-        x="40"
-      >
-        Cross
-      </text>
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="469.75"
-        x="67.95"
-      >
-        -
-      </text>
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="469.75"
-        x="73.14"
-      >
-        Browser 
-      </text>
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="483.5"
-        x="40"
-      >
-        Compatibility
-      </text>
-      {/* ALL LANGUAGES */}
+      <svg y="350.875" x="40" id="skills" /> {/* Increased from 340.875 */}
+      {formData.skills?.map((skill, index) => (
+        <text
+          key={skill.id}
+          fill="white"
+          font-size="12px"
+          font-family="Poppins"
+          y={350.875 + index * 20}
+          x="40"
+        >
+          {skill.skill}
+        </text>
+      ))}
+      {/* LANGUAGES SECTION */}
       <svg y="507.125" x="40" id="languages" />
       <text
         letter-spacing="1"
@@ -355,27 +284,20 @@ const DynamicSVG = () => {
       >
         LANGUAGES
       </text>
-      <svg y="533.625" x="40" id="80e56c2e-2229-4147-941b-452a03e8e194" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="543.75"
-        x="40"
-      >
-        English
-      </text>
-      <svg y="557.375" x="40" id="1951ba93-faca-437d-8845-fc1dc1460269" />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="567.5"
-        x="40"
-      >
-        Hindi
-      </text>
-      {/* ALL HOBBIES */}
+      <svg y="539.275" x="40" id="languages-container" />{" "}
+      {formData.languages?.map((language, index) => (
+        <text
+          key={language.id}
+          fill="white"
+          font-size="12px"
+          font-family="Poppins"
+          y={540.275 + index * 20} // 20px vertical spacing
+          x="40"
+        >
+          {language.language}
+        </text>
+      ))}
+      {/* HOBBIES SECTION */}
       <svg y="591.125" x="40" id="hobbies" />
       <text
         letter-spacing="1"
@@ -387,52 +309,20 @@ const DynamicSVG = () => {
       >
         HOBBIES
       </text>
-      <svg y="617.625" x="40" id="33cdeb84-ca5a-4092-a5b2-47027ad93925" />
-      <path
-        fill="#99c7c7"
-        d="M 40,620.75 L 47.5,620.75 C 47.5,620.75,47.5,620.75,47.5,620.75 L 47.5,628.25 C 47.5,628.25,47.5,628.25,47.5,628.25 L 40,628.25 C 40,628.25,40,628.25,40,628.25 L 40,620.75 C 40,620.75,40,620.75,40,620.75 Z"
-      />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="627.75"
-        x="52.5"
-      >
-        Coding
-      </text>
-      <svg y="641.375" x="40" id="903025db-e7b3-4f6d-8eaa-4e6857128205" />
-      <path
-        fill="#99c7c7"
-        d="M 40,644.5 L 47.5,644.5 C 47.5,644.5,47.5,644.5,47.5,644.5 L 47.5,652 C 47.5,652,47.5,652,47.5,652 L 40,652 C 40,652,40,652,40,652 L 40,644.5 C 40,644.5,40,644.5,40,644.5 Z"
-      />
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="651.5"
-        x="52.5"
-      >
-        Web 
-      </text>
-      <text
-        fill="white"
-        font-size="10px"
-        font-family="Poppins"
-        y="651.5"
-        x="77.76"
-      >
-        Design
-      </text>
-      <text
-        fill="black"
-        font-size="8px"
-        font-family="Poppins"
-        y="818.99"
-        x="220"
-      >
-          
-      </text>
+      <svg y="623.275" x="40" id="hobbies-container" />{" "}
+      {/* 20px gap below heading */}
+      {formData.hobbies?.map((hobby, index) => (
+        <text
+          key={hobby.id}
+          fill="white"
+          font-size="12px"
+          font-family="Poppins"
+          y={623.275 + index * 20} // 20px vertical spacing
+          x="40"
+        >
+          {hobby.hobby}
+        </text>
+      ))}
       {/* Education */}
       <svg y="314.375" x="220" id="educations" />
       <rect fill="#99c7c7" height="16.5" width="84.192" y="314.375" x="220" />
@@ -447,262 +337,51 @@ const DynamicSVG = () => {
         EDUCATION
       </text>
       <svg y="340.875" x="220" id="3f83829a-bc1b-4654-bdd7-bba874cacd6a" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="220"
-      >
-        12th
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="453.34"
-      >
-        Jun 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="473.72999999999996"
-      >
-        2000 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="500.66999999999996"
-      >
-        - 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="508.59999999999997"
-      >
-        May 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="351"
-        x="531.96"
-      >
-        2022
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="220"
-      >
-        Jp
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="231.74"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="236.21"
-      >
-        Meerut
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="270.58"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="275.05"
-      >
-        Uttar 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="301.89"
-      >
-        Pradesh
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="342.3"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="364.75"
-        x="346.77"
-      >
-        India
-      </text>
-      <svg y="378.375" x="220" id="db40689e-cdbb-4b74-bde4-cd5d2580f7c1" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="220"
-      >
-        Btech 
-      </text>
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="251.28"
-      >
-        CSE
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="463.65999999999997"
-      >
-        Jan 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="484.46999999999997"
-      >
-        2023 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="510.65999999999997"
-      >
-        - 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="388.5"
-        x="518.5899999999999"
-      >
-        Present
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="220"
-      >
-        JP
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="230.63"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="235.1"
-      >
-        Meerut
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="269.47"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="273.94"
-      >
-        Uttar 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="300.78"
-      >
-        Pradesh
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="341.19"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="402.25"
-        x="345.65999999999997"
-      >
-        India
-      </text>
+      {formData.education && formData.education.length > 0 ? (
+        formData.education.map((education, index) => {
+          const yPosition = 350.875 + index * 20;
+          return (
+            <React.Fragment key={education.id}>
+              <text
+                font-weight="bold"
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="220"
+              >
+                {education.institution} 
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="300" // Adjusted x position for better alignment
+              >
+                {education.degree} 
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="450" // Adjusted x position for better alignment
+              >
+                {education.startDate} - {education.endDate}
+              </text>
+            </React.Fragment>
+          );
+        })
+      ) : (
+        <text
+          fill="black"
+          font-size="10px"
+          font-family="Poppins"
+          y="340.875"
+          x="220"
+        ></text>
+      )}
       {/* Employment */}
       <svg y="425.875" x="220" id="employment" />
       <rect
@@ -722,165 +401,59 @@ const DynamicSVG = () => {
       >
         EMPLOYMENT
       </text>
-      <svg y="452.375" x="220" id="cd9b1395-b384-40a0-aebf-b5bd0171933d" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="220"
-      >
-        SWE 
-      </text>
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="243.87"
-      >
-        II
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="463.90999999999997"
-      >
-        May 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="487.27"
-      >
-        2013 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="510.65999999999997"
-      >
-        - 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="462.5"
-        x="518.5899999999999"
-      >
-        Present
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="476.25"
-        x="220"
-      >
-        Amazon
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="476.25"
-        x="260.65"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="476.25"
-        x="265.12"
-      >
-        Meerut
-      </text>
-      <svg y="489.875" x="220" id="b1b9b49f-5349-44c1-ae76-93ae71d13e10" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="500"
-        x="220"
-      >
-        SWEI
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="500"
-        x="467.80999999999995"
-      >
-        Jul 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="500"
-        x="484.15999999999997"
-      >
-        2020 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="500"
-        x="510.65999999999997"
-      >
-        - 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="500"
-        x="518.5899999999999"
-      >
-        Present
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="513.75"
-        x="220"
-      >
-        Microsoft
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="513.75"
-        x="265.21"
-      >
-        , 
-      </text>
-      <text
-        fill="#666666"
-        font-size="10px"
-        font-family="Poppins"
-        y="513.75"
-        x="269.68"
-      >
-        Meerut
-      </text>
-      {/* COURSES */}
+      {formData.experience && formData.experience.length > 0 ? (
+        formData.experience.map((experience, index) => {
+          const yPosition = 460.875 + index * 30;
+          return (
+            <React.Fragment key={experience.id}>
+              <text
+                font-weight="bold"
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="220"
+              >
+                {experience.position} at {experience.employer} 
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="400" // Adjusted x position for better alignment
+              >
+                {experience.startDate} - {experience.endDate}
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition + 15} // Slightly below the position
+                x="220"
+              >
+                {experience.description}
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition + 20} // Below the employer
+                x="220"
+              ></text>
+            </React.Fragment>
+          );
+        })
+      ) : (
+        <text
+          fill="black"
+          font-size="10px"
+          font-family="Poppins"
+          y="425.875"
+          x="220"
+        ></text>
+      )}
+      {/* Courses */}
       <svg y="537.375" x="220" id="courses" />
       <rect
         fill="#99c7c7"
@@ -899,67 +472,42 @@ const DynamicSVG = () => {
       >
         COURSES
       </text>
-      <svg y="563.875" x="220" id="33c45eac-1341-42b8-aba3-a30b2545e3b6" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="574"
-        x="220"
-      >
-        Master 
-      </text>
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="574"
-        x="257.27"
-      >
-        CSS
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="574"
-        x="518.5899999999999"
-      >
-        Present
-      </text>
-      <svg y="587.625" x="220" id="d49b9e00-65b5-419e-b9fe-2c3a54a89935" />
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="597.75"
-        x="220"
-      >
-        Master 
-      </text>
-      <text
-        font-weight="bold"
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="597.75"
-        x="257.27"
-      >
-        JS
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="597.75"
-        x="518.5899999999999"
-      >
-        Present
-      </text>
-      {/* ACHIEVEMENTS */}
+      {formData.courses && formData.courses.length > 0 ? (
+        formData.courses.map((course, index) => {
+          const yPosition = 574.875 + index * 20;
+          return (
+            <React.Fragment key={course.id}>
+              <text
+                font-weight="bold"
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="220"
+              >
+                {course.courseName}
+              </text>
+              <text
+                fill="black"
+                font-size="10px"
+                font-family="Poppins"
+                y={yPosition}
+                x="400"
+              >
+                {course.startDate} - {course.endDate}
+              </text>
+            </React.Fragment>
+          );
+        })
+      ) : (
+        <text
+          fill="black"
+          font-size="10px"
+          font-family="Poppins"
+          y="563.875"
+          x="220"
+        ></text>
+      )}
       <svg y="621.375" x="220" id="achievements" />
       <rect fill="#99c7c7" height="16.5" width="106.428" y="621.375" x="220" />
       <text
@@ -973,194 +521,46 @@ const DynamicSVG = () => {
         ACHIEVEMENTS
       </text>
       <svg y="647.875" x="220" id="description" />
-      <text fill="black" font-size="10px" font-family="Poppins" y="658" x="240">
-        Developed 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="296.14"
-      >
-        and 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="318.71000000000004"
-      >
-        maintained 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="378.94"
-      >
-        user
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="400.21"
-      >
-        -
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="405.4"
-      >
-        friendly 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="444.34"
-      >
-        web 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="658"
-        x="468.2"
-      >
-        applications 
-      </text>
-      <circle fill="black" r="2" cy="656" cx="230" />
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="240"
-      >
-        using 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="269.54"
-      >
-        modern 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="311.84000000000003"
-      >
-        frameworks
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="369.99"
-      >
-        , 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="374.46000000000004"
-      >
-        resulting 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="419.69"
-      >
-        in 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="431.05"
-      >
-        a 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="440.54"
-      >
-        30% 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="462.55"
-      >
-        increase 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="507.95"
-      >
-        in 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="671.75"
-        x="519.31"
-      >
-        user 
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="685.5"
-        x="240"
-      >
-        engagement
-      </text>
-      <text
-        fill="black"
-        font-size="10px"
-        font-family="Poppins"
-        y="685.5"
-        x="305.35"
-      >
-        .
-      </text>
+      {formData.achievements && formData.achievements.length > 0 ? (
+        formData.achievements.map((achievement, index) => {
+          const yPosition = 658.875 + index * 20;
+          return (
+            <text
+              key={achievement.id}
+              fill="black"
+              font-size="10px"
+              font-family="Poppins"
+              y={yPosition}
+              x="220"
+            >
+              {achievement.achievement}
+            </text>
+          );
+        })
+      ) : (
+        <text
+          fill="black"
+          font-size="10px"
+          font-family="Poppins"
+          y="647.875"
+          x="220"
+        ></text>
+      )}
       <svg y="709.125" x="220" id="signature" />
-      <svg y="719.125" x="220" />
+      <svg y="815.875" x="220" id="footer" />
+      {formData.footer && (
+        <text
+          fill="grey"
+          font-size="10px"
+          font-family="Poppins"
+          y="815.875"
+          x="220"
+        >
+          {formData.footer}
+        </text>
+      )}
     </svg>
   );
 };
 
-export default DynamicSVG;
+export default DynamicSVG_01;

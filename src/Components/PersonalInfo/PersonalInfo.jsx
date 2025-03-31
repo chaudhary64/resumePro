@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { collapser, expander } from "../../utils/animation";
 import { useAnimation } from "framer-motion";
 import { Info } from "../../Context/Context";
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const PersonalInfo = ({ toogleElement, setToggleElement }) => {
   const personalInfoWrapper = useAnimation();
@@ -117,7 +117,9 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 countryCallingCodeEditable={false}
                 defaultCountry="IN"
                 value={formData.personalInfo?.phoneNumber || ""}
-                onChange={(value) => handlePersonalInfoChange("phoneNumber", value)}
+                onChange={(value) =>
+                  handlePersonalInfoChange("phoneNumber", value)
+                }
                 className="border p-2 w-full rounded"
               />
             </div>
@@ -264,6 +266,30 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                   />
                 </svg>
               </div>
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-sm font-medium">Linkedin</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.linkedin || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("linkedin", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
+            </div>
+
+            <div className="col-span-2">
+              <label className="block text-sm font-medium">website</label>
+              <input
+                type="text"
+                value={formData.personalInfo?.website || ""}
+                onChange={(e) =>
+                  handlePersonalInfoChange("website", e.target.value)
+                }
+                className="border p-2 w-full rounded"
+              />
             </div>
           </div>
         </div>
