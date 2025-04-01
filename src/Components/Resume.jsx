@@ -13,7 +13,7 @@ import Courses from "./Courses/Courses";
 import Achievements from "./Achievements/Achievements";
 import Footer from "./Footer/Footer";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
-import DynamicSVG_01 from "./ResumeTemplates/DynamicSVG_01";
+import DynamicSVG_02 from "./ResumeTemplates/DynamicSVG_02";
 
 const Resume = () => {
   const { id } = useParams();
@@ -119,7 +119,7 @@ const Resume = () => {
         </section>
         {/* Right Part */}
         <section className="h-full w-1/2 border-4 border-red-500 overflow-y-scroll no-scrollbar">
-          <DynamicSVG_01 />
+          <DynamicSVG_02 />
         </section>
       </main>
     </>

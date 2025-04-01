@@ -27,7 +27,7 @@ const DynamicSVG_01 = () => {
       {/* First Name and Last Name */}
       <text
         letter-spacing="1"
-        font-weight="bold"
+        fontWeight="bold"
         fill="white"
         font-size="35px"
         font-family="Poppins"
@@ -343,7 +343,7 @@ const DynamicSVG_01 = () => {
           return (
             <React.Fragment key={education.id}>
               <text
-                font-weight="bold"
+                fontWeight="bold"
                 fill="black"
                 font-size="10px"
                 font-family="Poppins"
@@ -407,7 +407,7 @@ const DynamicSVG_01 = () => {
           return (
             <React.Fragment key={experience.id}>
               <text
-                font-weight="bold"
+                fontWeight="bold"
                 fill="black"
                 font-size="10px"
                 font-family="Poppins"
@@ -478,7 +478,7 @@ const DynamicSVG_01 = () => {
           return (
             <React.Fragment key={course.id}>
               <text
-                font-weight="bold"
+                fontWeight="bold"
                 fill="black"
                 font-size="10px"
                 font-family="Poppins"
