@@ -36,7 +36,7 @@ const Resume = () => {
 
   return (
     <>
-      <nav className="h-[7vh] px-2 flex justify-between items-center text-white text-sm bg-[#1D1D20]">
+      <nav className="h-[7vh] px-2 flex justify-between items-center text-white text-[15px] bg-[#1D1D20]">
         <Link
           to="/"
           className="px-2 py-1.5 flex items-center gap-2 rounded border border-[#52525A] hover:bg-[#3F3F45] transition-all"
