@@ -42,10 +42,6 @@ const Home = () => {
       id: 9,
       src: "/resume-templates/09.svg",
     },
-    {
-      id: 10,
-      src: "/resume-templates/10.svg",
-    },
   ];
 
   const steps = [
