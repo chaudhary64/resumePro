@@ -12,9 +12,7 @@ const ExperienceForm = ({
       <input
         type="text"
         value={experienceData.position}
-        onChange={(e) =>
-          handleExperienceChange(id, "position", e.target.value)
-        }
+        onChange={(e) => handleExperienceChange(id, "position", e.target.value)}
         className="border p-2 w-full rounded"
       />
 
@@ -30,7 +28,9 @@ const ExperienceForm = ({
       <input
         type="date"
         value={experienceData.startDate}
-        onChange={(e) => handleExperienceChange(id, "startDate", e.target.value)}
+        onChange={(e) =>
+          handleExperienceChange(id, "startDate", e.target.value)
+        }
         className="border p-2 w-full rounded"
       />
 
@@ -40,14 +40,6 @@ const ExperienceForm = ({
         value={experienceData.endDate}
         onChange={(e) => handleExperienceChange(id, "endDate", e.target.value)}
         className="border p-2 w-full rounded"
-      />
-
-      <label className="block text-sm font-medium mt-4">Description</label>
-      <textarea
-        value={experienceData.description}
-        onChange={(e) => handleExperienceChange(id, "description", e.target.value)}
-        className="border p-2 w-full rounded"
-        rows="4"
       />
 
       <button
