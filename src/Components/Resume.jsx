@@ -12,12 +12,20 @@ import Achievements from "./Achievements/Achievements";
 import Footer from "./Footer/Footer";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
 
-const Resume = () => {
-  const { id } = useParams();
+// Import all templates statically
+import DynamicSVG_01 from "./ResumeTemplates/DynamicSVG_01";
+import DynamicSVG_02 from "./ResumeTemplates/DynamicSVG_02";
+import DynamicSVG_03 from "./ResumeTemplates/DynamicSVG_03";
+import DynamicSVG_04 from "./ResumeTemplates/DynamicSVG_04";
+import DynamicSVG_05 from "./ResumeTemplates/DynamicSVG_05";
+import DynamicSVG_06 from "./ResumeTemplates/DynamicSVG_06";
+import DynamicSVG_07 from "./ResumeTemplates/DynamicSVG_07";
+import DynamicSVG_08 from "./ResumeTemplates/DynamicSVG_08";
+import DynamicSVG_09 from "./ResumeTemplates/DynamicSVG_09";
 
-  const DynamicComponent = React.lazy(() =>
-    import(`./ResumeTemplates/DynamicSVG_0${id}`)
-  );
+const Resume = () => {
+  let { id } = useParams();
+  id = id.toString().padStart(2, "0"); // Ensure id is a string with at least 2 digits
 
   const [toogleElement, setToggleElement] = useState({
     personalInfo: false,
@@ -34,6 +42,24 @@ const Resume = () => {
     signature: false,
     footer: false,
   });
+
+  // Map template IDs to components
+  const templateMap = {
+    "01": DynamicSVG_01,
+    "02": DynamicSVG_02,
+    "03": DynamicSVG_03,
+    "04": DynamicSVG_04,
+    "05": DynamicSVG_05,
+    "06": DynamicSVG_06,
+    "07": DynamicSVG_07,
+    "08": DynamicSVG_08,
+    "09": DynamicSVG_09,
+  };
+
+  console.log(templateMap);
+
+  const SelectedTemplate =
+    templateMap[id] || (() => <div>Template not found</div>);
 
   return (
     <>
@@ -53,7 +79,7 @@ const Resume = () => {
       </nav>
       <main className="h-[93vh] flex gap-2">
         {/* Left Part */}
-        <section className="h-full w-1/2 border-4 border-red-500 overflow-y-scroll no-scrollbar">
+        <section className="h-full w-1/2 overflow-y-scroll ">
           <form action="post" className="w-[80%] mx-auto pt-5 px-5">
             {/* Desired Job Position */}
             {/* <div className="pb-3 border-b border-gray-200">
@@ -119,21 +145,8 @@ const Resume = () => {
           </form>
         </section>
         {/* Right Part */}
-        <section className="h-full w-1/2 border-4 border-red-500 overflow-y-scroll no-scrollbar">
-          <React.Suspense
-            fallback={
-              <div className="animate-pulse space-y-6 p-6 w-full max-w-2xl mx-auto">
-                <div className="h-8 bg-gray-300 rounded w-1/2"></div>
-                <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-                <div className="h-6 bg-gray-300 rounded w-full"></div>
-                <div className="h-80 bg-gray-300 rounded w-full"></div>
-                <div className="h-6 bg-gray-300 rounded w-1/2"></div>
-                <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-              </div>
-            }
-          >
-            <DynamicComponent />
-          </React.Suspense>
+        <section className="h-full w-1/2 overflow-y-scroll ">
+          <SelectedTemplate />
         </section>
       </main>
     </>
