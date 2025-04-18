@@ -7,6 +7,7 @@ const DynamicSVG_01 = () => {
 
   return (
     <svg
+      id="01"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 595.28 841.89"
       className="document-preview"
@@ -70,18 +71,7 @@ const DynamicSVG_01 = () => {
         y="136.675"
         x="75"
       >
-        +
-      </text>
-      <text
-        fill="white"
-        font-size="9px"
-        font-family="Poppins"
-        y="136.675"
-        x="80.895"
-      >
-        {formData.personalInfo.phoneNumber
-          ? formData.personalInfo.phoneNumber.slice(1)
-          : ""}
+        {formData.personalInfo.phoneNumber}
       </text>
       {/* Address */}
       <image
@@ -384,13 +374,7 @@ const DynamicSVG_01 = () => {
       )}
       {/* Employment */}
       <svg y="425.875" x="220" id="employment" />
-      <rect
-        fill="#99c7c7"
-        height="16.5"
-        width="93.79599999999999"
-        y="425.875"
-        x="220"
-      />
+      <rect fill="#99c7c7" height="16.5" width="98" y="425.875" x="221" />
       <text
         letter-spacing="1"
         fill="white"
@@ -509,7 +493,7 @@ const DynamicSVG_01 = () => {
         ></text>
       )}
       <svg y="621.375" x="220" id="achievements" />
-      <rect fill="#99c7c7" height="16.5" width="106.428" y="621.375" x="220" />
+      <rect fill="#99c7c7" height="16.5" width="110" y="621.375" x="221" />
       <text
         letter-spacing="1"
         fill="white"

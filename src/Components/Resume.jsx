@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Link, useParams } from "react-router";
@@ -23,9 +23,80 @@ import DynamicSVG_07 from "./ResumeTemplates/DynamicSVG_07";
 import DynamicSVG_08 from "./ResumeTemplates/DynamicSVG_08";
 import DynamicSVG_09 from "./ResumeTemplates/DynamicSVG_09";
 
+import jsPDF from "jspdf";
+
 const Resume = () => {
   let { id } = useParams();
   id = id.toString().padStart(2, "0"); // Ensure id is a string with at least 2 digits
+
+  const handleDownload = async (id) => {
+    const svgElement = document.getElementById(id);
+    const scale = 6; // high-quality scaling
+
+    // Clone SVG to avoid modifying the original
+    const clonedSvg = svgElement.cloneNode(true);
+
+    // Get width/height from attributes or viewBox
+    let width = parseFloat(clonedSvg.getAttribute("width"));
+    let height = parseFloat(clonedSvg.getAttribute("height"));
+    const viewBox = clonedSvg.getAttribute("viewBox");
+
+    if (!width || !height) {
+      if (viewBox) {
+        const vb = viewBox.split(" ").map(Number);
+        width = vb[2];
+        height = vb[3];
+      } else {
+        console.error("SVG must have width/height or viewBox.");
+        return;
+      }
+    }
+
+    // Set scaled width/height
+    clonedSvg.setAttribute("width", width * scale);
+    clonedSvg.setAttribute("height", height * scale);
+
+    // Serialize to blob and URL
+    const svgData = new XMLSerializer().serializeToString(clonedSvg);
+    const svgBlob = new Blob([svgData], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = () => {
+      // Draw on canvas
+      const canvas = document.createElement("canvas");
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Revoke URL after drawing
+      URL.revokeObjectURL(url);
+
+      // Store image data in variable
+      const imgData = canvas.toDataURL("image/png");
+
+      // ✅ You now have the image stored
+      const storedImage = imgData; // Use this as needed elsewhere
+
+      // Create PDF using jsPDF
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height],
+      });
+
+      pdf.addImage(storedImage, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save("high-quality-svg.pdf");
+    };
+
+    img.src = url;
+  };
 
   const [toogleElement, setToggleElement] = useState({
     personalInfo: false,
@@ -56,8 +127,6 @@ const Resume = () => {
     "09": DynamicSVG_09,
   };
 
-  console.log(templateMap);
-
   const SelectedTemplate =
     templateMap[id] || (() => <div>Template not found</div>);
 
@@ -72,7 +141,10 @@ const Resume = () => {
           Home
         </Link>
         <span>ResumePro</span>
-        <button className="px-2 py-1.5 bg-[#4314B6] flex items-center gap-2 rounded">
+        <button
+          onClick={() => handleDownload(id)}
+          className="px-2 py-1.5 bg-[#4314B6] flex items-center gap-2 rounded"
+        >
           <MdOutlineFileDownload />
           Download
         </button>

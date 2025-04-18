@@ -5,6 +5,7 @@ const DynamicSVG_03 = () => {
   const { formData } = useContext(Info);
   return (
     <svg
+      id="03"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 595.28 841.89"
       className="document-preview"
