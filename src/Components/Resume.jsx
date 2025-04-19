@@ -25,10 +25,18 @@ import DynamicSVG_09 from "./ResumeTemplates/DynamicSVG_09";
 
 import jsPDF from "jspdf";
 import { GoogleGenAI } from "@google/genai";
+import { motion, AnimatePresence } from "framer-motion";
+import Modal from "./Modal";
 
 const Resume = () => {
   let { id } = useParams();
   id = id.toString().padStart(2, "0"); // Ensure id is a string with at least 2 digits
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [jobDescription, setJobDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [atsResult, setAtsResult] = useState(null);
+  const [error, setError] = useState("");
 
   async function getAtsScoreFromSvg(svgCode, jobDescription) {
     const ai = new GoogleGenAI({
@@ -92,15 +100,21 @@ const Resume = () => {
     return atsResult;
   }
 
-  // Example usage:
-  useEffect(() => {
-    (async () => {
+  // This function will be called when user submits the job description
+  const handleAnalyze = async () => {
+    setLoading(true);
+    setError("");
+    setAtsResult(null);
+    try {
       const elem = document.getElementById(id);
       const svgCode = new XMLSerializer().serializeToString(elem);
-      const result = await getAtsScoreFromSvg(svgCode, "Frontend Developer");
-      console.log(result);
-    })();
-  }, []);
+      const result = await getAtsScoreFromSvg(svgCode, jobDescription);
+      setAtsResult(result);
+    } catch (e) {
+      setError("Failed to analyze resume. Please try again.");
+    }
+    setLoading(false);
+  };
 
   const handleDownload = async (id) => {
     const svgElement = document.getElementById(id);
@@ -203,26 +217,113 @@ const Resume = () => {
   const SelectedTemplate =
     templateMap[id] || (() => <div>Template not found</div>);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const backdropVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, y: -50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 500, damping: 30 },
+    },
+    exit: { opacity: 0, y: 50, scale: 0.95 },
+  };
+
   return (
     <>
-      <nav className="h-[7vh] px-2 flex justify-between items-center text-white text-[15px] bg-[#1D1D20]">
-        <Link
-          to="/"
-          className="px-2 py-1.5 flex items-center gap-2 rounded border border-[#52525A] hover:bg-[#3F3F45] transition-all"
-        >
-          <IoMdArrowBack />
-          Home
-        </Link>
-        <span>ResumePro</span>
-        <button
-          onClick={() => handleDownload(id)}
-          className="px-2 py-1.5 bg-[#4314B6] flex items-center gap-2 rounded"
-        >
-          <MdOutlineFileDownload />
-          Download
-        </button>
+      <nav className="bg-[#1D1D20] text-white px-4 h-[7vh] flex items-center relative">
+        <div className="w-full max-w-8xl mx-auto flex items-center justify-between">
+          {/* Left: Home Link */}
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-2 py-1 rounded border border-[#52525A] hover:bg-[#3F3F45] transition"
+          >
+            <IoMdArrowBack />
+            <span className="hidden sm:inline">Home</span>
+          </Link>
+
+          {/* Center: Brand */}
+          <span className="text-[17px] font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            ResumePro
+          </span>
+
+          {/* Right: Desktop Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="px-3 py-1 bg-[#4314B6] flex items-center gap-2 rounded hover:bg-[#5e2ad6] transition duration-300 cursor-pointer"
+            >
+              Analyse Resume
+            </button>
+            <button
+              onClick={() => handleDownload(id)}
+              className="px-3 py-1 bg-[#4314B6] flex items-center gap-2 rounded hover:bg-[#5e2ad6] transition duration-300 cursor-pointer"
+            >
+              <MdOutlineFileDownload />
+              Download
+            </button>
+          </div>
+
+          {/* Hamburger Button */}
+          <button
+            className="md:hidden flex items-center p-2 rounded hover:bg-[#3F3F45] transition cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d={
+                  menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"
+                }
+              />
+            </svg>
+          </button>
+        </div>
+        {/* Mobile Dropdown  */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="absolute top-[7vh] left-0 w-full bg-[#1D1D20] border-t border-[#52525A] md:hidden z-50"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex flex-col gap-2 p-4">
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="w-full px-3 py-2 bg-[#4314B6] rounded hover:bg-[#5e2ad6] transition cursor-pointer"
+                >
+                  Analyse Resume
+                </button>
+                <button
+                  onClick={() => handleDownload(id)}
+                  className="w-full px-3 py-2 bg-[#4314B6] flex justify-center items-center gap-2 rounded hover:bg-[#5e2ad6] transition cursor-pointer"
+                >
+                  <MdOutlineFileDownload />
+                  Download
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
-      <main className="lg:h-[93vh] flex flex-col lg:flex-row gap-2">
+      <main className="lg:h-[92vh] flex flex-col lg:flex-row gap-2">
         {/* Left Part */}
         <section className="h-full lg:w-1/2 overflow-y-scroll no-scrollbar">
           <form action="post" className="w-[95%] lg:w-[80%] mx-auto pt-5 px-5">
@@ -294,6 +395,150 @@ const Resume = () => {
           <SelectedTemplate />
         </section>
       </main>
+      {/* Modal for job description and ATS result */}
+      <AnimatePresence>
+        {modalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm w-screen"
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            key="backdrop"
+          >
+            <motion.div
+              className={
+                "relative w-full max-w-lg mx-auto flex flex-col " +
+                (atsResult ? "h-screen" : "")
+              }
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              onClick={(e) => e.stopPropagation()}
+              key="modal"
+            >
+              <div
+                className={
+                  "relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full flex flex-col " +
+                  (atsResult ? "h-screen" : "")
+                }
+              >
+                {/* Cross Button */}
+                <button
+                  onClick={() => setModalOpen(false)}
+                  aria-label="Close"
+                  className="absolute top-2.5 lg:top-5 right-3 lg:right-5 text-gray-400 hover:text-red-500 rounded-full p-2 transition z-10 cursor-pointer"
+                >
+                  <svg
+                    className="w-7 h-7"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+                {/* Modal Content (scrollable, no scrollbar) */}
+                <div
+                  className={
+                    "flex-1 overflow-y-auto scrollbar-hide px-6 py-12 space-y-8" +
+                    (atsResult ? "" : " max-h-[80vh]")
+                  }
+                >
+                  {!atsResult ? (
+                    <>
+                      <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">
+                        Paste Job Description
+                      </h2>
+                      <textarea
+                        className="w-full h-36 p-4 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none text-gray-800 dark:text-gray-100 text-base"
+                        value={jobDescription}
+                        onChange={(e) => setJobDescription(e.target.value)}
+                        placeholder="Paste the job description here..."
+                      />
+                      <button
+                        className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow transition disabled:opacity-60 text-lg cursor-pointer"
+                        onClick={handleAnalyze}
+                        disabled={loading || !jobDescription}
+                      >
+                        {loading ? "Analyzing..." : "Analyze"}
+                      </button>
+                      {error && (
+                        <div className="text-red-500 text-sm text-center">
+                          {error}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center">
+                        ATS Analysis Result
+                      </h2>
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="text-4xl font-extrabold text-indigo-600">
+                          {atsResult.ats_score}
+                        </span>
+                        <span className="text-gray-500 text-lg">/ 100</span>
+                      </div>
+                      <div className="text-gray-700 dark:text-gray-200 text-center">
+                        {atsResult.explanation}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-indigo-700 mt-2">
+                          Strengths
+                        </h3>
+                        <ul className="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200">
+                          {atsResult.strengths.map((s, i) => (
+                            <li key={i}>{s}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-indigo-700 mt-2">
+                          Areas for Improvement
+                        </h3>
+                        <ul className="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200">
+                          {atsResult.areas_for_improvement.map((a, i) => (
+                            <li key={i}>{a}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-indigo-700 mt-2">
+                          Missing Keywords/Sections
+                        </h3>
+                        <ul className="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200">
+                          {atsResult.missing_keywords_or_sections.map(
+                            (k, i) => (
+                              <li key={i}>{k}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                      <button
+                        className="w-full mt-6 py-3 rounded-xl bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold transition text-lg cursor-pointer"
+                        onClick={() => {
+                          setAtsResult(null);
+                          setJobDescription("");
+                          setModalOpen(false);
+                        }}
+                      >
+                        Done
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
