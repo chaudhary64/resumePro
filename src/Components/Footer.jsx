@@ -3,6 +3,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
 import { BsTwitterX } from "react-icons/bs";
 import { GrLinkedin } from "react-icons/gr";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -61,19 +62,28 @@ const Footer = () => {
             <p className="text-lg font-semibold text-white mb-4">Quick Links</p>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link
+                  to="/about"
+                  className="hover:text-white transition-colors"
+                >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Contact
-                </a>
+                <Link
+                  to="/contact"
+                  className="hover:text-white transition-colors"
+                >
+                  Contact Us
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Privacy Policy
-                </a>
+                <Link
+                  to="/terms"
+                  className="hover:text-white transition-colors"
+                >
+                  Terms of Service
+                </Link>
               </li>
             </ul>
           </div>
