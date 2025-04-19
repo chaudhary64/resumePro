@@ -1,9 +1,172 @@
 // DynamicSVG_01.jsx
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Info } from "../../Context/Context";
+
+// SVG page height and margin for overflow warning
+const SVG_HEIGHT = 841.89;
+const OVERFLOW_MARGIN = 20;
+
+// Helper for SVG text wrapping
+function wrapSvgText(text, maxWidth, font = "10px Poppins") {
+  if (typeof window === "undefined") return [text];
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  context.font = font;
+  const words = text.split(" ");
+  let lines = [];
+  let currentLine = "";
+  for (let i = 0; i < words.length; i++) {
+    const testLine = currentLine ? currentLine + " " + words[i] : words[i];
+    const { width } = context.measureText(testLine);
+    if (width > maxWidth && currentLine) {
+      lines.push(currentLine);
+      currentLine = words[i];
+    } else {
+      currentLine = testLine;
+    }
+  }
+  if (currentLine) lines.push(currentLine);
+  return lines;
+}
 
 const DynamicSVG_01 = () => {
   const { formData } = useContext(Info);
+
+  // Dynamic Y calculations for left column
+  const skillsStartY = 350.875;
+  const skillLineHeight = 20;
+  const skillsCount = formData.skills?.length || 0;
+
+  const skillsSectionGap = 40;
+  const languagesStartY =
+    skillsStartY + skillsCount * skillLineHeight + skillsSectionGap;
+  const languageLineHeight = 20;
+  const languagesCount = formData.languages?.length || 0;
+
+  const languagesSectionGap = 40;
+  const hobbiesStartY =
+    languagesStartY + languagesCount * languageLineHeight + languagesSectionGap;
+  const hobbyLineHeight = 20;
+  const hobbiesCount = formData.hobbies?.length || 0;
+
+  // Dynamic Y calculations for right column
+  const educationStartY = 350.875;
+  const educationLineHeight = 20;
+  const educationCount = formData.education?.length || 0;
+
+  const educationSectionGap = 40;
+  const employmentStartY =
+    educationStartY +
+    educationCount * educationLineHeight +
+    educationSectionGap;
+  const employmentLineHeight = 20;
+  const employmentCount = formData.experience?.length || 0;
+
+  const employmentSectionGap = 40;
+  const coursesStartY =
+    employmentStartY +
+    employmentCount * employmentLineHeight +
+    employmentSectionGap;
+  const coursesLineHeight = 20;
+  const coursesCount = formData.courses?.length || 0;
+
+  const coursesSectionGap = 40;
+  const achievementsStartY =
+    coursesStartY + coursesCount * coursesLineHeight + coursesSectionGap;
+  const achievementsLineHeight = 20;
+  const achievementsCount = formData.achievements?.length || 0;
+
+  const achievementsSectionGap = 50;
+  // We'll calculate the footerStartY after achievements
+
+  // --- Overflow logic ---
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  // --- Achievements with bullets and dynamic Y ---
+  const achievementFontSize = 10;
+  const achievementLineHeightPx = 14;
+  const achievementMaxWidth = 320;
+  let achievementY = achievementsStartY;
+  let lastAchievementY = achievementsStartY;
+  let lastAchievementLines = 0;
+  const achievementElements =
+    formData.achievements && formData.achievements.length > 0 ? (
+      formData.achievements.map((achievement, index) => {
+        const lines = wrapSvgText(
+          achievement.achievement,
+          achievementMaxWidth,
+          `${achievementFontSize}px Poppins`
+        );
+        const element = (
+          <text
+            key={achievement.id}
+            fill="black"
+            fontSize={`${achievementFontSize}px`}
+            fontFamily="Poppins"
+            x="220"
+            y={achievementY}
+          >
+            {lines.map((line, i) => (
+              <tspan key={i} x="220" dy={i === 0 ? 0 : achievementLineHeightPx}>
+                {i === 0 ? "\u2022 " + line : line}
+              </tspan>
+            ))}
+          </text>
+        );
+        lastAchievementY = achievementY;
+        lastAchievementLines = lines.length;
+        achievementY += lines.length * achievementLineHeightPx;
+        return element;
+      })
+    ) : (
+      <text
+        fill="black"
+        fontSize="10px"
+        fontFamily="Poppins"
+        y={achievementsStartY}
+        x="220"
+      ></text>
+    );
+
+  // Calculate footer Y based on last achievement
+  const footerStartY =
+    lastAchievementY +
+    lastAchievementLines * achievementLineHeightPx +
+    achievementsSectionGap;
+
+  useEffect(() => {
+    // Find the maximum Y position (footer or last section)
+    const maxY = Math.max(
+      hobbiesStartY + hobbiesCount * hobbyLineHeight,
+      achievementY,
+      footerStartY
+    );
+    if (maxY > SVG_HEIGHT - OVERFLOW_MARGIN) {
+      setIsOverflowing(true);
+    } else {
+      setIsOverflowing(false);
+    }
+  }, [
+    skillsCount,
+    languagesCount,
+    hobbiesCount,
+    educationCount,
+    employmentCount,
+    coursesCount,
+    achievementsCount,
+    footerStartY,
+    hobbiesStartY,
+    achievementsStartY,
+    achievementY,
+  ]);
+
+  useEffect(() => {
+    if (isOverflowing) {
+      alert(
+        "Warning: Your content is about to overflow the SVG page! Please reduce content or sections."
+      );
+    }
+  }, [isOverflowing]);
 
   return (
     <svg
@@ -237,128 +400,128 @@ const DynamicSVG_01 = () => {
       >
         {formData.personalInfo.linkedin}
       </text>
-      <svg y="314.375" x="40" id="skills" />
+      {/* SKILLS SECTION */}
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="#999999"
-        font-size="12px"
-        font-family="Poppins"
-        y="326.525"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={skillsStartY - 24.35}
         x="40"
       >
         SKILLS
       </text>
-      {/* ALL SKILLS */}
-      <svg y="350.875" x="40" id="skills" /> {/* Increased from 340.875 */}
       {formData.skills?.map((skill, index) => (
         <text
           key={skill.id}
           fill="white"
-          font-size="12px"
-          font-family="Poppins"
-          y={350.875 + index * 20}
+          fontSize="12px"
+          fontFamily="Poppins"
+          y={skillsStartY + index * skillLineHeight}
           x="40"
         >
           {skill.skill}
         </text>
       ))}
+
       {/* LANGUAGES SECTION */}
-      <svg y="507.125" x="40" id="languages" />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="#999999"
-        font-size="12px"
-        font-family="Poppins"
-        y="519.275"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={languagesStartY - 14.35}
         x="40"
       >
         LANGUAGES
       </text>
-      <svg y="539.275" x="40" id="languages-container" />{" "}
       {formData.languages?.map((language, index) => (
         <text
           key={language.id}
           fill="white"
-          font-size="12px"
-          font-family="Poppins"
-          y={540.275 + index * 20} // 20px vertical spacing
+          fontSize="12px"
+          fontFamily="Poppins"
+          y={languagesStartY + (index + 0.5) * languageLineHeight}
           x="40"
         >
           {language.language}
         </text>
       ))}
+
       {/* HOBBIES SECTION */}
-      <svg y="591.125" x="40" id="hobbies" />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="#999999"
-        font-size="12px"
-        font-family="Poppins"
-        y="603.275"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={hobbiesStartY - 14.35}
         x="40"
       >
         HOBBIES
       </text>
-      <svg y="623.275" x="40" id="hobbies-container" />{" "}
-      {/* 20px gap below heading */}
       {formData.hobbies?.map((hobby, index) => (
         <text
           key={hobby.id}
           fill="white"
-          font-size="12px"
-          font-family="Poppins"
-          y={623.275 + index * 20} // 20px vertical spacing
+          fontSize="12px"
+          fontFamily="Poppins"
+          y={hobbiesStartY + (index + 0.5) * hobbyLineHeight}
           x="40"
         >
           {hobby.hobby}
         </text>
       ))}
-      {/* Education */}
-      <svg y="314.375" x="220" id="educations" />
-      <rect fill="#99c7c7" height="16.5" width="84.192" y="314.375" x="220" />
+
+      {/* EDUCATION SECTION */}
+      <rect
+        fill="#99c7c7"
+        height="16.5"
+        width="84.192"
+        y={educationStartY - 36.5}
+        x="220"
+      />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="white"
-        font-size="12px"
-        font-family="Poppins"
-        y="326.525"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={educationStartY - 24.35}
         x="224"
       >
         EDUCATION
       </text>
-      <svg y="340.875" x="220" id="3f83829a-bc1b-4654-bdd7-bba874cacd6a" />
       {formData.education && formData.education.length > 0 ? (
         formData.education.map((education, index) => {
-          const yPosition = 350.875 + index * 20;
+          const yPosition = educationStartY + index * educationLineHeight;
           return (
             <React.Fragment key={education.id}>
               <text
                 fontWeight="bold"
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
                 x="220"
               >
-                {education.institution} 
+                {education.institution}
               </text>
               <text
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
-                x="300" // Adjusted x position for better alignment
+                x="300"
               >
-                {education.degree} 
+                {education.degree}
               </text>
               <text
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
-                x="450" // Adjusted x position for better alignment
+                x="450"
               >
-                {education.startDate} - {education.endDate}
+                {education.startDate} - {education.endDate}
               </text>
             </React.Fragment>
           );
@@ -366,106 +529,105 @@ const DynamicSVG_01 = () => {
       ) : (
         <text
           fill="black"
-          font-size="10px"
-          font-family="Poppins"
-          y="340.875"
+          fontSize="10px"
+          fontFamily="Poppins"
+          y={educationStartY}
           x="220"
         ></text>
       )}
-      {/* Employment */}
-      <svg y="425.875" x="220" id="employment" />
-      <rect fill="#99c7c7" height="16.5" width="98" y="425.875" x="221" />
+
+      {/* EMPLOYMENT SECTION */}
+      <rect
+        fill="#99c7c7"
+        height="16.5"
+        width="98"
+        y={employmentStartY - 36.5}
+        x="221"
+      />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="white"
-        font-size="12px"
-        font-family="Poppins"
-        y="438.025"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={employmentStartY - 24.35}
         x="224"
       >
         EMPLOYMENT
       </text>
       {formData.experience && formData.experience.length > 0 ? (
         formData.experience.map((experience, index) => {
-          const yPosition = 460.875 + index * 30;
+          const yPosition = employmentStartY + index * employmentLineHeight;
           return (
             <React.Fragment key={experience.id}>
               <text
                 fontWeight="bold"
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
                 x="220"
               >
-                {experience.position} at {experience.employer} 
+                {experience.position} at {experience.employer}
               </text>
               <text
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
-                x="400" // Adjusted x position for better alignment
+                x="450"
               >
                 {experience.startDate} - {experience.endDate}
               </text>
               <text
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
-                y={yPosition + 15} // Slightly below the position
+                fontSize="10px"
+                fontFamily="Poppins"
+                y={yPosition + 15}
                 x="220"
               >
                 {experience.description}
               </text>
-              <text
-                fill="black"
-                font-size="10px"
-                font-family="Poppins"
-                y={yPosition + 20} // Below the employer
-                x="220"
-              ></text>
             </React.Fragment>
           );
         })
       ) : (
         <text
           fill="black"
-          font-size="10px"
-          font-family="Poppins"
-          y="425.875"
+          fontSize="10px"
+          fontFamily="Poppins"
+          y={employmentStartY}
           x="220"
         ></text>
       )}
-      {/* Courses */}
-      <svg y="537.375" x="220" id="courses" />
+
+      {/* COURSES SECTION */}
       <rect
         fill="#99c7c7"
         height="16.5"
-        width="69.44800000000001"
-        y="537.375"
+        width="69.448"
+        y={coursesStartY - 36.5}
         x="220"
       />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="white"
-        font-size="12px"
-        font-family="Poppins"
-        y="549.525"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={coursesStartY - 24.35}
         x="224"
       >
         COURSES
       </text>
       {formData.courses && formData.courses.length > 0 ? (
         formData.courses.map((course, index) => {
-          const yPosition = 574.875 + index * 20;
+          const yPosition = coursesStartY + index * coursesLineHeight;
           return (
             <React.Fragment key={course.id}>
               <text
                 fontWeight="bold"
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
                 x="220"
               >
@@ -473,10 +635,10 @@ const DynamicSVG_01 = () => {
               </text>
               <text
                 fill="black"
-                font-size="10px"
-                font-family="Poppins"
+                fontSize="10px"
+                fontFamily="Poppins"
                 y={yPosition}
-                x="400"
+                x="450"
               >
                 {course.startDate} - {course.endDate}
               </text>
@@ -486,58 +648,40 @@ const DynamicSVG_01 = () => {
       ) : (
         <text
           fill="black"
-          font-size="10px"
-          font-family="Poppins"
-          y="563.875"
+          fontSize="10px"
+          fontFamily="Poppins"
+          y={coursesStartY}
           x="220"
         ></text>
       )}
-      <svg y="621.375" x="220" id="achievements" />
-      <rect fill="#99c7c7" height="16.5" width="110" y="621.375" x="221" />
+
+      {/* ACHIEVEMENTS SECTION with bullets and dynamic Y */}
+      <rect
+        fill="#99c7c7"
+        height="16.5"
+        width="110"
+        y={achievementsStartY - 36.5}
+        x="221"
+      />
       <text
-        letter-spacing="1"
+        letterSpacing="1"
         fill="white"
-        font-size="12px"
-        font-family="Poppins"
-        y="633.525"
+        fontSize="12px"
+        fontFamily="Poppins"
+        y={achievementsStartY - 24.35}
         x="224"
       >
         ACHIEVEMENTS
       </text>
-      <svg y="647.875" x="220" id="description" />
-      {formData.achievements && formData.achievements.length > 0 ? (
-        formData.achievements.map((achievement, index) => {
-          const yPosition = 658.875 + index * 20;
-          return (
-            <text
-              key={achievement.id}
-              fill="black"
-              font-size="10px"
-              font-family="Poppins"
-              y={yPosition}
-              x="220"
-            >
-              {achievement.achievement}
-            </text>
-          );
-        })
-      ) : (
-        <text
-          fill="black"
-          font-size="10px"
-          font-family="Poppins"
-          y="647.875"
-          x="220"
-        ></text>
-      )}
-      <svg y="709.125" x="220" id="signature" />
-      <svg y="815.875" x="220" id="footer" />
+      {achievementElements}
+
+      {/* FOOTER */}
       {formData.footer && (
         <text
           fill="grey"
-          font-size="10px"
-          font-family="Poppins"
-          y="815.875"
+          fontSize="10px"
+          fontFamily="Poppins"
+          y={footerStartY}
           x="220"
         >
           {formData.footer}
