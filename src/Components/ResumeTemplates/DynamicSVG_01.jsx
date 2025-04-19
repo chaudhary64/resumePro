@@ -406,7 +406,7 @@ const DynamicSVG_01 = () => {
         fill="#999999"
         fontSize="12px"
         fontFamily="Poppins"
-        y={skillsStartY - 24.35}
+        y={skillsStartY - 14.35}
         x="40"
       >
         SKILLS
@@ -417,7 +417,7 @@ const DynamicSVG_01 = () => {
           fill="white"
           fontSize="12px"
           fontFamily="Poppins"
-          y={skillsStartY + index * skillLineHeight}
+          y={skillsStartY + (index + 0.5) * skillLineHeight}
           x="40"
         >
           {skill.skill}
