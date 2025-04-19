@@ -24,10 +24,83 @@ import DynamicSVG_08 from "./ResumeTemplates/DynamicSVG_08";
 import DynamicSVG_09 from "./ResumeTemplates/DynamicSVG_09";
 
 import jsPDF from "jspdf";
+import { GoogleGenAI } from "@google/genai";
 
 const Resume = () => {
   let { id } = useParams();
   id = id.toString().padStart(2, "0"); // Ensure id is a string with at least 2 digits
+
+  async function getAtsScoreFromSvg(svgCode, jobDescription) {
+    const ai = new GoogleGenAI({
+      apiKey: import.meta.env.VITE_GOOGLE_GENAI_API_KEY,
+    });
+
+    const prompt = `
+  I am providing SVG code that contains the text of my resume, and a job description for a position I am applying to.
+  
+  1. Extract all relevant resume text from the SVG code, ignoring SVG tags, formatting, or non-text elements.
+  2. Analyze the extracted text as a professional resume.
+  3. Score my resume for Applicant Tracking System (ATS) compatibility on a scale from 0 to 100, specifically based on how well it matches the provided job description. Consider keyword relevance, section structure, and readability.
+  4. Provide a brief explanation of the score, including strengths and areas for improvement to increase ATS compatibility. Do NOT mention SVG format, graphics, or non-text elements as a reason for a low score.
+  5. List any missing keywords or sections that would improve my chances for this specific job.
+  Output only a JSON object in the following format (do not include any extra text):
+  
+  {
+    "ats_score": [number],
+    "explanation": "[brief explanation]",
+    "strengths": ["strength 1", "strength 2", "..."],
+    "areas_for_improvement": ["area 1", "area 2", "..."],
+    "missing_keywords_or_sections": ["keyword/section 1", "keyword/section 2", "..."]
+  }
+  
+  Here is my SVG code:
+  
+  ${svgCode}
+  
+  Here is the job description:
+  
+  ${jobDescription}
+  `;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: prompt,
+    });
+
+    const resultText = response.candidates[0].content.parts[0].text;
+
+    // Extract JSON object from the response text
+    const jsonStartIndex = resultText.indexOf("{");
+    const jsonEndIndex = resultText.lastIndexOf("}");
+    let atsResult;
+
+    if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+      const jsonString = resultText.substring(jsonStartIndex, jsonEndIndex + 1);
+      try {
+        atsResult = JSON.parse(jsonString);
+      } catch (e) {
+        throw new Error(
+          "Failed to parse JSON from sanitized response: " + jsonString
+        );
+      }
+    } else {
+      throw new Error(
+        "No valid JSON object found in the response: " + resultText
+      );
+    }
+
+    return atsResult;
+  }
+
+  // Example usage:
+  useEffect(() => {
+    (async () => {
+      const elem = document.getElementById(id);
+      const svgCode = new XMLSerializer().serializeToString(elem);
+      const result = await getAtsScoreFromSvg(svgCode, "Frontend Developer");
+      console.log(result);
+    })();
+  }, []);
 
   const handleDownload = async (id) => {
     const svgElement = document.getElementById(id);
