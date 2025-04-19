@@ -9,12 +9,20 @@ function ExpandableText({ question, answer }) {
   const expander = (controller) => {
     controller.start({
       height: "auto",
+      transition: {
+        duration: 1,
+        ease: [0.68, -0.55, 0.27, 1.55],
+      },
     });
   };
 
   const collapser = (controller) => {
     controller.start({
       height: 0,
+      transition: {
+        duration: 1,
+        ease: [0.68, -0.55, 0.27, 1.55],
+      },
     });
   };
 

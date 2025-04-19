@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import Swipper from "../Components/Swipper";
 import ExpandableText from "../Components/ExpandableText";
 import Footer from "../Components/Footer";
 import Nav from "../Nav/Nav";
+import { useLenis } from "lenis/react";
 
 const Home = () => {
   const swippeCards = [
@@ -110,6 +111,9 @@ const Home = () => {
     },
   ];
 
+  const swipperRef = useRef(null);
+  const lenis = useLenis();
+
   return (
     <>
       <Nav />
@@ -125,12 +129,26 @@ const Home = () => {
             </p>
             <p>resume instantly.</p>
           </div>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-3 px-3 md:px-5 lg:px-6 rounded transition-colors duration-200">
+          <button
+            onClick={() => {
+              lenis.scrollTo(swipperRef.current, {
+                offset: -(
+                  window.innerHeight / 2 -
+                  swipperRef.current.offsetHeight / 2
+                ),
+                duration: 0.85,
+                easing: (t) => t * (2 - t),
+              });
+            }}
+            className="bg-blue-500 hover:bg-blue-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-3 px-3 md:px-5 lg:px-6 rounded transition-colors duration-200 cursor-pointer"
+          >
             Get Started
           </button>
         </section>
         {/* Swipper */}
-        <Swipper data={swippeCards} />
+        <section ref={swipperRef}>
+          <Swipper data={swippeCards} />
+        </section>
         {/* How it works */}
         <section className="my-18 lg:my-24">
           <p className="text-center text-4xl">
@@ -202,7 +220,19 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-              <button className="bg-[#FBAF38] font-bold py-3 px-8 rounded-full">
+              <button
+                onClick={() => {
+                  lenis.scrollTo(swipperRef.current, {
+                    offset: -(
+                      window.innerHeight / 2 -
+                      swipperRef.current.offsetHeight / 2
+                    ),
+                    duration: 0.85,
+                    easing: (t) => t * (2 - t),
+                  });
+                }}
+                className="bg-[#FBAF38] font-bold py-3 px-8 rounded-full cursor-pointer"
+              >
                 Creat your CV Now
               </button>
             </div>

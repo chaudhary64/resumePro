@@ -39,7 +39,7 @@ const Nav = () => {
 
       <div className="flex items-center text-sm lg:text-base">
         <SignOutButton redirectUrl="/sign-in">
-          <button className="bg-red-500 hover:bg-red-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-2.5 px-3 md:px-5 lg:px-5 rounded transition-colors duration-200">
+          <button className="bg-red-500 hover:bg-red-600 text-white text-sm lg:text-base font-bold py-2 md:py-2.5 lg:py-2.5 px-3 md:px-5 lg:px-5 rounded transition-colors duration-200 cursor-pointer">
             Logout
           </button>
         </SignOutButton>
