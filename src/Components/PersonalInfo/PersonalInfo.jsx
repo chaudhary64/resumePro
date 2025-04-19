@@ -76,7 +76,8 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
         className="overflow-hidden"
       >
         <div className="border p-4 my-5.5 rounded">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+            {/* First Name */}
             <div>
               <label className="block text-sm font-medium">First Name</label>
               <input
@@ -88,6 +89,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Last Name */}
             <div>
               <label className="block text-sm font-medium">Last Name</label>
               <input
@@ -99,6 +101,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium">Email</label>
               <input
@@ -110,6 +113,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Phone Number */}
             <div>
               <label className="block text-sm font-medium">Phone Number</label>
               <PhoneInput
@@ -123,6 +127,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Address */}
             <div>
               <label className="block text-sm font-medium">Address</label>
               <input
@@ -134,6 +139,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Postal Code */}
             <div>
               <label className="block text-sm font-medium">Postal Code</label>
               <input
@@ -145,6 +151,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* City */}
             <div>
               <label className="block text-sm font-medium">City</label>
               <input
@@ -156,6 +163,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Date of Birth */}
             <div>
               <label className="block text-sm font-medium">Date of Birth</label>
               <input
@@ -167,6 +175,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Place of Birth */}
             <div>
               <label className="block text-sm font-medium">
                 Place of Birth
@@ -180,6 +189,7 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
+            {/* Driver's License */}
             <div>
               <label className="block text-sm font-medium">
                 Driver's License
@@ -193,7 +203,9 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
-            <div className="col-span-2">
+
+            {/* Gender */}
+            <div className="col-span-full">
               <label className="block text-sm font-medium">Gender</label>
               <div className="relative w-full">
                 <select
@@ -222,7 +234,8 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 </svg>
               </div>
             </div>
-            <div className="col-span-2">
+            {/* Nationality */}
+            <div className="col-span-full">
               <label className="block text-sm font-medium">Nationality</label>
               <input
                 type="text"
@@ -233,11 +246,11 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
-            <div className="col-span-2">
+            {/* Marital Status */}
+            <div className="col-span-full">
               <label className="block text-sm font-medium">
                 Marital Status
               </label>
-
               <div className="relative w-full">
                 <select
                   value={formData.personalInfo?.civilStatus || ""}
@@ -252,7 +265,6 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                   <option value="divorced">Divorced</option>
                   <option value="widowed">Widowed</option>
                 </select>
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -267,8 +279,8 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 </svg>
               </div>
             </div>
-
-            <div className="col-span-2">
+            {/* Linkedin */}
+            <div className="col-span-full">
               <label className="block text-sm font-medium">Linkedin</label>
               <input
                 type="text"
@@ -279,9 +291,9 @@ const PersonalInfo = ({ toogleElement, setToggleElement }) => {
                 className="border p-2 w-full rounded"
               />
             </div>
-
-            <div className="col-span-2">
-              <label className="block text-sm font-medium">website</label>
+            {/* Website */}
+            <div className="col-span-full">
+              <label className="block text-sm font-medium">Website</label>
               <input
                 type="text"
                 value={formData.personalInfo?.website || ""}

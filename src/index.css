@@ -16,10 +16,12 @@ body::-webkit-scrollbar-thumb {
     border-radius: 5px;
 }
 
-.no-scrollbar::-webkit-scrollbar {
-    /* Making the background color of the scrollbar as same as that of the body */
-    background-color: black;
-    width: 0px;
+@media (max-width: 768px) {
+    .no-scrollbar::-webkit-scrollbar {
+        /* Making the background color of the scrollbar as same as that of the body */
+        background-color: black;
+        width: 0px;
+    }
 }
 
 @theme {

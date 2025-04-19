@@ -112,7 +112,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
               placeholder="Enter course name"
             />
 
-            <div className="flex gap-4 mb-4">
+            <div className="flex flex-wrap gap-4 mb-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium">Start Date</label>
                 <input

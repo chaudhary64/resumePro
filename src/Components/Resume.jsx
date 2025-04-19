@@ -222,10 +222,10 @@ const Resume = () => {
           Download
         </button>
       </nav>
-      <main className="h-[93vh] flex gap-2">
+      <main className="lg:h-[93vh] flex flex-col lg:flex-row gap-2">
         {/* Left Part */}
-        <section className="h-full w-1/2 overflow-y-scroll ">
-          <form action="post" className="w-[80%] mx-auto pt-5 px-5">
+        <section className="h-full lg:w-1/2 overflow-y-scroll no-scrollbar">
+          <form action="post" className="w-[95%] lg:w-[80%] mx-auto pt-5 px-5">
             {/* Desired Job Position */}
             {/* <div className="pb-3 border-b border-gray-200">
               <p className="text-sm text-gray-600">Desired job position</p>
@@ -290,7 +290,7 @@ const Resume = () => {
           </form>
         </section>
         {/* Right Part */}
-        <section className="h-full w-1/2 overflow-y-scroll ">
+        <section className="h-full lg:w-1/2 max-md:mt-5 overflow-y-scroll no-scrollbar">
           <SelectedTemplate />
         </section>
       </main>
