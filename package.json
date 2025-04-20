@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^5.25.4",
     "@google/genai": "^0.9.0",
     "@tailwindcss/vite": "^4.0.12",
+    "antd": "^5.24.7",
     "appwrite": "^17.0.1",
     "dotenv": "^16.4.7",
     "jspdf": "^3.0.1",

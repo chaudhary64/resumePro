@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { Link, useParams } from "react-router";
@@ -26,7 +26,8 @@ import DynamicSVG_09 from "./ResumeTemplates/DynamicSVG_09";
 import jsPDF from "jspdf";
 import { GoogleGenAI } from "@google/genai";
 import { motion, AnimatePresence } from "framer-motion";
-import Modal from "./Modal";
+import LanguageDropdown from "./LanguageDropdown";
+import { Info } from "../Context/Context";
 
 const Resume = () => {
   let { id } = useParams();
@@ -37,6 +38,17 @@ const Resume = () => {
   const [loading, setLoading] = useState(false);
   const [atsResult, setAtsResult] = useState(null);
   const [error, setError] = useState("");
+
+  const {
+    languages,
+    setLanguages,
+    search,
+    setSearch,
+    selectedLang,
+    setSelectedLang,
+    modalVisible,
+    setModalVisible,
+  } = useContext(Info);
 
   async function getAtsScoreFromSvg(svgCode, jobDescription) {
     const ai = new GoogleGenAI({
@@ -236,6 +248,22 @@ const Resume = () => {
     exit: { opacity: 0, y: 50, scale: 0.95 },
   };
 
+  // Fetch list of languages for language dropdown component
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/umpirsky/language-list/master/data/en/language.json"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const languageList = Object.entries(data).map(([code, name]) => ({
+          code,
+          name,
+        }));
+        setLanguages(languageList);
+      })
+      .catch((err) => console.error("Failed to fetch languages:", err));
+  }, []);
+
   return (
     <>
       <nav className="bg-[#1D1D20] text-white px-4 h-[7vh] flex items-center relative">
@@ -262,13 +290,14 @@ const Resume = () => {
             >
               Analyse Resume
             </button>
-            <button
+            {/* <button
               onClick={() => handleDownload(id)}
               className="px-3 py-1 bg-[#4314B6] flex items-center gap-2 rounded hover:bg-[#5e2ad6] transition duration-300 cursor-pointer"
             >
               <MdOutlineFileDownload />
               Download
-            </button>
+            </button> */}
+            <LanguageDropdown />
           </div>
 
           {/* Hamburger Button */}
@@ -311,13 +340,14 @@ const Resume = () => {
                 >
                   Analyse Resume
                 </button>
-                <button
+                {/* <button
                   onClick={() => handleDownload(id)}
                   className="w-full px-3 py-2 bg-[#4314B6] flex justify-center items-center gap-2 rounded hover:bg-[#5e2ad6] transition cursor-pointer"
                 >
                   <MdOutlineFileDownload />
                   Download
-                </button>
+                </button> */}
+                <LanguageDropdown />
               </div>
             </motion.div>
           )}

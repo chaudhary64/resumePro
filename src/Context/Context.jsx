@@ -39,8 +39,16 @@ const Context = (props) => {
     achievements: [],
   });
 
+  // Language dropdown states
+    const [languages, setLanguages] = useState([]);
+    const [search, setSearch] = useState("");
+    const [selectedLang, setSelectedLang] = useState("en");
+    const [modalVisible, setModalVisible] = useState(false); // For controlling the visibility of the modal
+
   return (
-    <Info.Provider value={{ formData, setFormData }}>
+    <Info.Provider value={{ formData, setFormData
+, languages, setLanguages, search, setSearch, selectedLang, setSelectedLang, modalVisible, setModalVisible
+     }}>
       {props.children}
     </Info.Provider>
   );

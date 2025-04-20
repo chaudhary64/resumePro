@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Swipper from "../Components/Swipper";
 import ExpandableText from "../Components/ExpandableText";
 import Footer from "../Components/Footer";
 import Nav from "../Nav/Nav";
 import { useLenis } from "lenis/react";
+import { Info } from "../Context/Context";
 
 const Home = () => {
   const swippeCards = [
@@ -113,6 +114,23 @@ const Home = () => {
 
   const swipperRef = useRef(null);
   const lenis = useLenis();
+  let { setLanguages } = useContext(Info);
+
+  // Fetch list of languages for language dropdown component
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/umpirsky/language-list/master/data/en/language.json"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const languageList = Object.entries(data).map(([code, name]) => ({
+          code,
+          name,
+        }));
+        setLanguages(languageList);
+      })
+      .catch((err) => console.error("Failed to fetch languages:", err));
+  }, []);
 
   return (
     <>
