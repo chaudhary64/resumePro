@@ -353,10 +353,10 @@ const Resume = () => {
           )}
         </AnimatePresence>
       </nav>
-      <main className="lg:h-[92vh] flex flex-col lg:flex-row gap-2">
+      <main className="lg:h-[92vh] flex flex-col lg:flex-row gap-3">
         {/* Left Part */}
         <section className="h-full lg:w-1/2 overflow-y-scroll no-scrollbar">
-          <form action="post" className="w-[95%] lg:w-[80%] mx-auto pt-5 px-5">
+          <form action="post" className="w-[100%] mx-auto pt-5 px-4">
             {/* Desired Job Position */}
             {/* <div className="pb-3 border-b border-gray-200">
               <p className="text-sm text-gray-600">Desired job position</p>

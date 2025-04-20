@@ -64,7 +64,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
               courses: !prev.courses,
             }));
           }}
-          className="rounded border border-gray-400 p-0.25"
+          className="rounded border border-gray-400 p-0.25 cursor-pointer hover:bg-gray-100 hover:border-blue-600 transition-all duration-300 ease-in-out"
         >
           {toogleElement.courses ? (
             <svg
@@ -139,7 +139,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
 
             <button
               onClick={() => removeCourse(course.id)}
-              className="mt-3 text-red-600 border border-red-600 rounded px-3 py-1 hover:bg-red-50"
+              className="mt-3 border border-red-600 rounded px-3 py-1 bg-red-600 hover:bg-red-500 text-white transition-all duration-500 ease-in-out cursor-pointer"
             >
               Remove
             </button>
@@ -150,7 +150,7 @@ const Courses = ({ toogleElement, setToggleElement }) => {
         <div className="flex justify-between gap-2 mt-3">
           <div
             onClick={addCourse}
-            className="border border-gray-400 px-3 py-1 rounded"
+            className="bg-indigo-900 text-white border border-indigo-900 px-3 py-1 rounded cursor-pointer transition-all duration-300 ease-in-out hover:bg-indigo-800 hover:border-indigo-700 hover:shadow"
           >
             + Add Course
           </div>

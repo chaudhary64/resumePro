@@ -37,7 +37,7 @@ const Footer = ({ toogleElement, setToggleElement }) => {
               footer: !prev.footer,
             }));
           }}
-          className="rounded border border-gray-400 p-0.25"
+          className="rounded border border-gray-400 p-0.25 cursor-pointer hover:bg-gray-100 hover:border-blue-600 transition-all duration-300 ease-in-out"
         >
           {toogleElement.footer ? (
             <svg

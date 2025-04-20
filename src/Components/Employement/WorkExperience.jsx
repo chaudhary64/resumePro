@@ -65,7 +65,7 @@ const WorkExperience = ({ toogleElement, setToggleElement }) => {
               experience: !prev.experience,
             }));
           }}
-          className="rounded border border-gray-400 p-0.25"
+          className="rounded border border-gray-400 p-0.25 cursor-pointer hover:bg-gray-100 hover:border-blue-600 transition-all duration-300 ease-in-out"
         >
           {toogleElement.experience ? (
             <svg
@@ -114,7 +114,7 @@ const WorkExperience = ({ toogleElement, setToggleElement }) => {
         <div className="flex justify-between gap-2 my-3">
           <div
             onClick={addExperience}
-            className="border border-gray-400 px-3 py-1 rounded"
+            className="bg-indigo-900 text-white border border-indigo-900 px-3 py-1 rounded cursor-pointer transition-all duration-300 ease-in-out hover:bg-indigo-800 hover:border-indigo-700 hover:shadow"
           >
             + Add Experience
           </div>
