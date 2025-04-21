@@ -51,8 +51,8 @@ const WorkExperience = ({ toogleElement, setToggleElement }) => {
   return (
     <section className="pb-5.5 border-b border-gray-200">
       <div className="pt-5.5 flex justify-between items-center">
-        <p className="text-xl truncate text-gray-500 font-bold select-none">
-          Work Experience
+        <p className="text-xl truncate text-gray-800 font-bold select-none">
+          Experience
         </p>
         <span
           onClick={() => {

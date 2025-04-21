@@ -378,20 +378,14 @@ const Resume = () => {
               setToggleElement={setToggleElement}
             />
 
-            {/* Employment */}
-            <WorkExperience
-              toogleElement={toogleElement}
-              setToggleElement={setToggleElement}
-            />
-
-            {/* Skills */}
-            <Skill
-              toogleElement={toogleElement}
-              setToggleElement={setToggleElement}
-            />
-
             {/* Languages */}
             <Languages
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Experience */}
+            <WorkExperience
               toogleElement={toogleElement}
               setToggleElement={setToggleElement}
             />
@@ -404,6 +398,12 @@ const Resume = () => {
 
             {/* Courses */}
             <Courses
+              toogleElement={toogleElement}
+              setToggleElement={setToggleElement}
+            />
+
+            {/* Skills */}
+            <Skill
               toogleElement={toogleElement}
               setToggleElement={setToggleElement}
             />
