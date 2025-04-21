@@ -39,7 +39,7 @@ const Contact = () => {
   return (
     <>
       <Nav />
-      <div className="min-h-screen flex flex-col bg-white">
+      <div className="pb-14 min-h-screen flex flex-col bg-white">
         {/* Header */}
         <div className="py-12">
           <div className="max-w-2xl mx-auto text-center">
@@ -205,9 +205,8 @@ const Contact = () => {
             </div>
           </div>
         )}
-
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
