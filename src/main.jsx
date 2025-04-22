@@ -18,6 +18,7 @@ import About from "./Pages/About.jsx";
 import Terms from "./Pages/Terms.jsx";
 import Contact from "./Pages/Contact.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
+import Dashboard from "./Pages/Dashboard.jsx";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -108,6 +109,19 @@ const ClerkWithRoutes = () => {
             <>
               <SignedIn>
                 <Contact />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <SignedIn>
+                <Dashboard />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />

@@ -14,7 +14,7 @@ const Nav = () => {
 
   return (
     <nav className="px-4 py-8 h-[7vh] flex items-center relative z-40">
-      <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
+      <div className="w-full mx-auto flex items-center justify-between">
         {/* Logo left */}
         <Link to="/" className="flex items-center">
           <svg
