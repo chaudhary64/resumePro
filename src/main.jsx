@@ -17,6 +17,7 @@ import Context from "./Context/Context.jsx";
 import About from "./Pages/About.jsx";
 import Terms from "./Pages/Terms.jsx";
 import Contact from "./Pages/Contact.jsx";
+import ScrollToTop from "./ScrollToTop.jsx";
 
 if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -122,6 +123,7 @@ const ClerkWithRoutes = () => {
 createRoot(document.getElementById("root")).render(
   <Context>
     <BrowserRouter>
+      <ScrollToTop />
       <ClerkWithRoutes />
     </BrowserRouter>
   </Context>

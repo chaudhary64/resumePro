@@ -269,9 +269,9 @@ const Home = () => {
             ))}
           </div>
         </section>
-        {/* Footer */}
-        <Footer />
       </main>
+      {/* Footer */}
+      <Footer />
     </>
   );
 };
