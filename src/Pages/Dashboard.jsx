@@ -9,32 +9,32 @@ const resumes = [
     id: 1,
     title: "Resume Chirag Chaudhary",
     edited: "3 days ago",
-    thumbnail: "/resumes/1.png",
+    thumbnail: "/resume-templates/01.svg",
   },
   {
     id: 2,
     title: "Resume Chirag Chaudhary",
     edited: "15 days ago",
-    thumbnail: "/resumes/2.png",
+    thumbnail: "/resume-templates/03.svg",
   },
   {
     id: 3,
     title: "Resume Chirag Chaudhary",
     edited: "22 days ago",
-    thumbnail: "/resumes/3.png",
+    thumbnail: "/resume-templates/06.svg",
   },
   {
     id: 4,
     title: "Resume Chirag Chaudhary",
     edited: "22 days ago",
-    thumbnail: "/resumes/3.png",
+    thumbnail: "/resume-templates/08.svg",
   },
 ];
 
 const templates = Array.from({ length: 9 }, (_, i) => ({
   id: i + 1,
   name: `Template ${i + 1}`,
-  thumbnail: `/public/resume-templates/0${i + 1}.svg`, // Update to correct paths
+  thumbnail: `/resume-templates/0${i + 1}.svg`, // Update to correct paths
 }));
 
 const Dashboard = () => {
