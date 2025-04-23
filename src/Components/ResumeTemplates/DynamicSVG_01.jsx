@@ -29,8 +29,12 @@ function wrapSvgText(text, maxWidth, font = "10px Poppins") {
   return lines;
 }
 
-const DynamicSVG_01 = () => {
-  const { formData } = useContext(Info);
+const DynamicSVG_01 = ({ data }) => {
+  let { formData } = useContext(Info);
+
+  if (data) {
+    formData = data;
+  }
 
   // Dynamic Y calculations for left column
   const skillsStartY = 350.875;

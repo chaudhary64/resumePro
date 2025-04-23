@@ -39,16 +39,31 @@ const Context = (props) => {
     achievements: [],
   });
 
+  const [userTemplates, setUserTemplates] = useState([]); // For storing user templates
+
   // Language dropdown states
-    const [languages, setLanguages] = useState([]);
-    const [search, setSearch] = useState("");
-    const [selectedLang, setSelectedLang] = useState("en");
-    const [modalVisible, setModalVisible] = useState(false); // For controlling the visibility of the modal
+  const [languages, setLanguages] = useState([]);
+  const [search, setSearch] = useState("");
+  const [selectedLang, setSelectedLang] = useState("en");
+  const [modalVisible, setModalVisible] = useState(false); // For controlling the visibility of the modal
 
   return (
-    <Info.Provider value={{ formData, setFormData
-, languages, setLanguages, search, setSearch, selectedLang, setSelectedLang, modalVisible, setModalVisible
-     }}>
+    <Info.Provider
+      value={{
+        formData,
+        setFormData,
+        languages,
+        setLanguages,
+        search,
+        setSearch,
+        selectedLang,
+        setSelectedLang,
+        modalVisible,
+        setModalVisible,
+        userTemplates,
+        setUserTemplates,
+      }}
+    >
       {props.children}
     </Info.Provider>
   );

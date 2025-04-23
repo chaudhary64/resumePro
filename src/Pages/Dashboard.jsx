@@ -1,44 +1,37 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HiOutlinePlus, HiOutlineX } from "react-icons/hi";
 import Nav from "../Nav/Nav";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router";
-
-const resumes = [
-  {
-    id: 1,
-    title: "Resume Chirag Chaudhary",
-    edited: "3 days ago",
-    thumbnail: "/resume-templates/01.svg",
-  },
-  {
-    id: 2,
-    title: "Resume Chirag Chaudhary",
-    edited: "15 days ago",
-    thumbnail: "/resume-templates/03.svg",
-  },
-  {
-    id: 3,
-    title: "Resume Chirag Chaudhary",
-    edited: "22 days ago",
-    thumbnail: "/resume-templates/06.svg",
-  },
-  {
-    id: 4,
-    title: "Resume Chirag Chaudhary",
-    edited: "22 days ago",
-    thumbnail: "/resume-templates/08.svg",
-  },
-];
+import { useUser } from "@clerk/clerk-react";
+import { Info } from "../Context/Context";
+import { getDynamicSVGComponent } from "../utils/getDynamicSVGComponent";
 
 const templates = Array.from({ length: 9 }, (_, i) => ({
   id: i + 1,
   name: `Template ${i + 1}`,
-  thumbnail: `/resume-templates/0${i + 1}.svg`, // Update to correct paths
+  thumbnail: `/public/resume-templates/0${i + 1}.svg`, // Update to correct paths
 }));
 
 const Dashboard = () => {
+  const { userTemplates, setUserTemplates } = useContext(Info);
   const [showModal, setShowModal] = useState(false);
+  const { user } = useUser();
+
+  useEffect(() => {
+    const email = user?.primaryEmailAddress?.emailAddress; // Get the user's email from clerk
+    fetch(
+      `https://resume-pro-db-api.onrender.com/get?email=${encodeURIComponent(
+        email
+      )}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        setUserTemplates(data); // Set the user templates in context
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   return (
     <>
@@ -73,19 +66,18 @@ const Dashboard = () => {
             </p>
           </div>
 
-          {resumes.map((resume) => (
+          {userTemplates.map((resume) => (
             <div key={resume.id} className="flex flex-col items-center">
               <div className="w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                <img
-                  src={resume.thumbnail}
-                  alt={resume.title}
-                  className="w-full h-full object-cover"
-                />
+                {/* <DynamicSVG_03 data={resume.object} /> */}
+                {getDynamicSVGComponent(resume.templateNumber, {
+                  data: resume.object,
+                })}
               </div>
               <h3 className="mt-3 text-lg font-semibold text-gray-800">
                 {resume.title}
               </h3>
-              <p className="text-sm text-gray-500">Edited {resume.edited}</p>
+              {/* <p className="text-sm text-gray-500">Edited {resume.edited}</p> */}
             </div>
           ))}
         </div>

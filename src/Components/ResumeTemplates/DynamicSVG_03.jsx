@@ -226,8 +226,12 @@ const personalInfoFields = [
   },
 ];
 
-const DynamicSVG_03 = () => {
-  const { formData } = useContext(Info);
+const DynamicSVG_03 = ({ data }) => {
+  let { formData } = useContext(Info);
+
+  if (data) {
+    formData = data;
+  }
 
   // --- Dynamic Personal Info Rendering ---
   const personalInfoStartY = 71.375;

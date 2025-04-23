@@ -130,6 +130,14 @@ const Home = () => {
         setLanguages(languageList);
       })
       .catch((err) => console.error("Failed to fetch languages:", err));
+
+    // Send a GET request to the API to start the server on Render
+    fetch(`https://resume-pro-db-api.onrender.com/`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   return (

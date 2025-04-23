@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
 import { Info } from "../../Context/Context";
 
-const DynamicSVG_05 = () => {
-  const { formData } = useContext(Info);
+const DynamicSVG_05 = ({ data }) => {
+  let { formData } = useContext(Info);
+
+  if (data) {
+    formData = data;
+  }
 
   // In this resume template there is no languages, hobbies, courses, and footer
 

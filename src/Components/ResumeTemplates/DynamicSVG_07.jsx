@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
 import { Info } from "../../Context/Context";
 
-const DynamicSVG_07 = () => {
+const DynamicSVG_07 = ({ data }) => {
   const { formData } = useContext(Info);
+
+  if (data) {
+    formData = data;
+  }
   return (
     <svg
       id="07"
