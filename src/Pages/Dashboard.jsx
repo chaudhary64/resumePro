@@ -36,10 +36,10 @@ const Dashboard = () => {
   return (
     <>
       <Nav />
-      <div className="min-h-screen bg-gray-50 p-8">
+      <div className="min-h-screen p-8">
         <div className="mb-8">
           <h2 className="text-4xl font-bold text-gray-900 mb-3">
-            Welcome back, <span className="text-blue-600">Chirag!</span>
+            Welcome back, <span className="text-blue-600">{user.username}</span>
           </h2>
         </div>
 
