@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { useUser } from "@clerk/clerk-react";
 import { Info } from "../Context/Context";
 import { getDynamicSVGComponent } from "../utils/getDynamicSVGComponent";
+import Templates from "../Components/Templates";
 
 const templates = Array.from({ length: 9 }, (_, i) => ({
   id: i + 1,
@@ -67,21 +68,7 @@ const Dashboard = () => {
           </div>
 
           {userTemplates.map((resume) => (
-            <div key={resume.id} className="flex flex-col items-center">
-              <div className="w-full aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition transform hover:scale-105">
-                {/* <DynamicSVG_03 data={resume.object} /> */}
-                {getDynamicSVGComponent(resume.templateNumber, {
-                  data: resume.object,
-                })}
-              </div>
-              <h3 className="mt-3 text-lg font-semibold text-gray-800">
-                {resume.title}
-              </h3>
-              <p className="text-sm text-gray-500">
-                {" "}
-                Last Edited: {resume.date}
-              </p>
-            </div>
+            <Templates resume={resume} key={resume.id} />
           ))}
         </div>
       </div>
