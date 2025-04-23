@@ -11,6 +11,8 @@ import Courses from "./Courses/Courses";
 import Achievements from "./Achievements/Achievements";
 import Footer from "./Footer/Footer";
 import PersonalInfo from "./PersonalInfo/PersonalInfo";
+import { IoCloudDoneOutline } from "react-icons/io5";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 // Import all templates statically
 import DynamicSVG_01 from "./ResumeTemplates/DynamicSVG_01";
@@ -28,10 +30,15 @@ import { GoogleGenAI } from "@google/genai";
 import { motion, AnimatePresence } from "framer-motion";
 import LanguageDropdown from "./LanguageDropdown";
 import { Info } from "../Context/Context";
+import { useUser } from "@clerk/clerk-react";
+import { postResumeData } from "../utils/postResumeData";
+import { formatDate } from "../utils/formatDate";
 
 const Resume = () => {
   let { id } = useParams();
+  const resumeId = id; // Use the id from the URL as resumeId
   id = id.toString().padStart(2, "0"); // Ensure id is a string with at least 2 digits
+  const { user } = useUser();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [jobDescription, setJobDescription] = useState("");
@@ -48,6 +55,7 @@ const Resume = () => {
     setSelectedLang,
     modalVisible,
     setModalVisible,
+    formData,
   } = useContext(Info);
 
   async function getAtsScoreFromSvg(svgCode, jobDescription) {
@@ -248,7 +256,26 @@ const Resume = () => {
     exit: { opacity: 0, y: 50, scale: 0.95 },
   };
 
-  // Fetch list of languages for language dropdown component
+  // This function will send the resume data to the server
+  const sendUpload = async (formData, date) => {
+    try {
+      const email = user?.primaryEmailAddress?.emailAddress;
+      // console.log("Email:", email);
+      // console.log("Form Data:", formData);
+      // console.log("ID:");
+      // console.log("Date:", date);
+      await postResumeData({
+        email,
+        dataObject: formData,
+        templateNumber: Number(resumeId),
+        date,
+      });
+      // console.log("Resume data saved successfully!");
+    } catch (err) {
+      console.error("Error saving resume data:", err);
+    }
+  };
+
   useEffect(() => {
     fetch(
       "https://raw.githubusercontent.com/umpirsky/language-list/master/data/en/language.json"
@@ -264,6 +291,18 @@ const Resume = () => {
       .catch((err) => console.error("Failed to fetch languages:", err));
   }, []);
 
+  // Fetch list of languages for language dropdown component
+  useEffect(() => {
+    const date = formatDate();
+    sendUpload(formData, date); // Initial upload
+
+    const interval = setInterval(() => {
+      sendUpload(formData, formatDate()); // ✅ pass up-to-date formData
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [formData]); // 👈 Add `formData` to the dependency array if you want the latest value
+
   return (
     <>
       <nav className="bg-[#1D1D20] text-white px-4 h-[7vh] flex items-center relative">
@@ -278,9 +317,12 @@ const Resume = () => {
           </Link>
 
           {/* Center: Brand */}
-          <span className="text-[17px] font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="text-[17px] font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center gap-2 leading-none">
             ResumePro
-          </span>
+            <span>
+              <IoCloudDoneOutline />
+            </span>
+          </div>
 
           {/* Right: Desktop Buttons */}
           <div className="hidden md:flex items-center gap-3">
