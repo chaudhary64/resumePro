@@ -77,7 +77,10 @@ const Dashboard = () => {
               <h3 className="mt-3 text-lg font-semibold text-gray-800">
                 {resume.title}
               </h3>
-              {/* <p className="text-sm text-gray-500">Edited {resume.edited}</p> */}
+              <p className="text-sm text-gray-500">
+                {" "}
+                Last Edited: {resume.date}
+              </p>
             </div>
           ))}
         </div>
