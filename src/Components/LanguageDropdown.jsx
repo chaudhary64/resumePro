@@ -1,6 +1,6 @@
 import { Menu, Dropdown, Input, Button, Modal, Spin } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { GoogleGenAI } from "@google/genai";
 import { useParams } from "react-router";
 import jsPDF from "jspdf";
@@ -57,6 +57,8 @@ ${svgCode}
         .trim();
     }
 
+    console.log("Gemini SVG Output:", resultText); // ✅ DEBUG
+
     const parser = new DOMParser();
     const doc = parser.parseFromString(resultText, "image/svg+xml");
     const parsedSvg = doc.documentElement;
@@ -64,6 +66,16 @@ ${svgCode}
     if (parsedSvg.nodeName === "parsererror") {
       console.error("SVG parsing error:", parsedSvg.textContent);
       return null;
+    }
+
+    // ✅ Ensure SVG has dimensions
+    if (!parsedSvg.getAttribute("width") || !parsedSvg.getAttribute("height")) {
+      parsedSvg.setAttribute("width", "800");
+      parsedSvg.setAttribute("height", "1000");
+    }
+
+    if (!parsedSvg.getAttribute("viewBox")) {
+      parsedSvg.setAttribute("viewBox", "0 0 800 1000");
     }
 
     return {
@@ -122,7 +134,7 @@ ${svgCode}
       });
 
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save("high-quality-svg.pdf");
+      pdf.save("translated-resume.pdf");
     };
 
     img.src = url;
@@ -166,8 +178,14 @@ ${svgCode}
             setSelectedLang(lang.code);
             setModalVisible(false);
 
-            const svgElement = document.getElementById(id);
-            if (svgElement) {
+            setTimeout(async () => {
+              const svgElement = document.getElementById(id);
+              if (!svgElement) {
+                console.warn("⚠️ SVG element not found. ID:", id);
+                setIsTranslating(false);
+                return;
+              }
+
               const svgCode = new XMLSerializer().serializeToString(svgElement);
               const result = await translateSvgTextWithGemini(
                 svgCode,
@@ -177,11 +195,9 @@ ${svgCode}
               if (result) {
                 await handleDownload(result.svgElement);
               }
-            } else {
-              console.warn("⚠️ SVG element not found.");
-            }
 
-            setIsTranslating(false);
+              setIsTranslating(false);
+            }, 300); // ⏱ Small delay to ensure DOM is ready
           },
         })),
       ],
@@ -202,7 +218,7 @@ ${svgCode}
 
       <Modal
         title="Select Language"
-        visible={modalVisible}
+        open={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={null}
         width={400}
