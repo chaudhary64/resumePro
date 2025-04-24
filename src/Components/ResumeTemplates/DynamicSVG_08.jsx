@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Info } from "../../Context/Context";
 
 const DynamicSVG_08 = ({ data }) => {
-  const { formData } = useContext(Info);
+  let { formData } = useContext(Info);
 
   if (data) {
     formData = data;
