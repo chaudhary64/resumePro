@@ -11,7 +11,7 @@ import Templates from "../Components/Templates";
 const templates = Array.from({ length: 9 }, (_, i) => ({
   id: i + 1,
   name: `Template ${i + 1}`,
-  thumbnail: `/public/resume-templates/0${i + 1}.svg`, // Update to correct paths
+  thumbnail: `/resume-templates/0${i + 1}.svg`, // Update to correct paths
 }));
 
 const Dashboard = () => {
